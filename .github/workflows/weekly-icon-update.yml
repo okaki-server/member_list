@@ -1,12 +1,12 @@
-name: Update Recommendation Metadata
+name: Weekly Icon Update
 
 on:
   schedule:
-    - cron: '0 19 * * *' # 日本時間 04:00 (UTC 19:00)
+    - cron: '0 20 * * 0' # 日本時間 月曜 05:00 (UTC 日曜 20:00)
   workflow_dispatch:      # 手動実行可能
 
 jobs:
-  update:
+  update-icons:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -21,20 +21,19 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Update Recommendation Metadata
+      - name: Fetch Latest YouTube Icons
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-        run: |
-          node scripts/update_rec_info.js
+        run: node scripts/fetch_icons.js
 
       - name: Commit and push if changed
         run: |
-          git config user.name  "github-actions[bot]"
+          git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add members.json
+          git add icons/ members.json
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "chore: update recommendation metadata [skip ci]"
+            git commit -m "chore: weekly icon update [skip ci]"
             git push
           fi

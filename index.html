@@ -708,7 +708,7 @@ footer { text-align:center;padding:3rem 0 1rem;font-size:.6rem;color:rgba(255,24
             ただ遊ぶだけではなく、本気で活動する配信者・クリエイターが集まり、切磋琢磨しながら共に歩んでいくコミュニティです。
           </div>
           <div class="mc-about-stats">
-            <div><span class="mc-about-stat-num">37</span><span class="mc-about-stat-label">MEMBERS</span></div>
+            <div><span class="mc-about-stat-num" id="mcMemberCount">31</span><span class="mc-about-stat-label">MEMBERS</span></div>
           </div>
         </div>
         <div class="mc-about-block">
@@ -1025,6 +1025,11 @@ Promise.all([
   fetch('members/manifest.json').then(r => r.json()).catch(() => ({}))
 ]).then(([data, manifest]) => {
     galleryManifest = manifest;
+    
+    // 動的に総メンバー数を更新
+    const countEl = document.getElementById('mcMemberCount');
+    if (countEl) countEl.textContent = data.length;
+
     const memberList = data
       .filter(d => d.id !== '運営')
       .map((d, i) => ({
