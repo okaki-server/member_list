@@ -396,8 +396,10 @@
       border-right: 6px solid #555;
       max-width: 680px;
       width: 95%;
-      max-height: 92vh;
-      overflow-y: auto;
+      max-height: 80vh; /* 高さ制限 */
+      display: flex;
+      flex-direction: column;
+      overflow: hidden; /* コンテナ自体はスクロールさせない */
       padding: 0;
       transform: scale(.85);
       transition: transform .25s cubic-bezier(.34, 1.56, .64, 1);
@@ -414,6 +416,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-shrink: 0; /* 潰れないように固定 */
+      z-index: 10;
     }
 
     .mc-modal-header-title {
@@ -448,6 +452,9 @@
       grid-template-columns: 168px 1fr;
       gap: 1.5rem;
       background: #c6c6c6;
+      flex: 1;
+      overflow-y: auto; /* ここだけスクロール */
+      -webkit-overflow-scrolling: touch;
     }
 
     .mc-modal-av {
@@ -995,6 +1002,17 @@
         opacity: 1;
         transform: none;
         pointer-events: all;
+      }
+
+      /* SP追従時はナビゲーションを非表示にしてロゴを目立たせる */
+      .mc-header.sp-active .mc-header-nav,
+      .mc-header.visible .mc-header-nav {
+        display: none;
+      }
+
+      .mc-header.sp-active .mc-header-logo,
+      .mc-header.visible .mc-header-logo {
+        margin: 0 auto 0 0; /* 左寄せ */
       }
     }
 
