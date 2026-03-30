@@ -17,7 +17,7 @@ import { fileURLToPath } from 'url';
 import { JSDOM } from 'jsdom';
 
 const __dirname  = path.dirname(fileURLToPath(import.meta.url));
-const MEMBERS_JSON = path.resolve(__dirname, '../public/members.json');
+const MEMBERS_JSON = path.resolve(__dirname, '../members.json');
 
 async function getYouTubeIcon(url) {
   try {

@@ -10,8 +10,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const MEMBERS_JSON = path.resolve(__dirname, '../public/members.json');
-const ICONS_DIR   = path.resolve(__dirname, '../public/icons');
+const MEMBERS_JSON = path.resolve(__dirname, '../members.json');
+const ICONS_DIR   = path.resolve(__dirname, '../icons');
 
 if (!fs.existsSync(ICONS_DIR)) fs.mkdirSync(ICONS_DIR, { recursive: true });
 
