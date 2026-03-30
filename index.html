@@ -254,10 +254,21 @@ body {
 .mc-modal-info { display: flex; flex-direction: column; }
 .mc-modal-name { font-size: 1.2rem; font-weight: 700; color: #1a1a1a; margin-bottom: .2rem; font-family: 'Zen Kaku Gothic New', sans-serif; }
 .mc-modal-subs {
-  font-family: 'Press Start 2P', monospace; font-size: .55rem;
-  color: #555; margin-bottom: .4rem; letter-spacing: .05em;
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'DotGothic16', monospace; font-size: 0.95rem;
+  color: #333; margin-bottom: .8rem;
 }
-.mc-modal-subs .subs-num { color: var(--grass); font-size: .65rem; }
+.mc-modal-subs .subs-num {
+  font-family: 'Press Start 2P', monospace; font-size: 1.15rem;
+  color: var(--grass); text-shadow: 1px 1px 0 rgba(0,0,0,.15);
+  margin: 0 4px;
+}
+.mc-stat-dot {
+  width: 14px; height: 14px; flex-shrink: 0;
+  background: var(--gold); border: 2px solid #7a5900;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  display: inline-block;
+}
 
 /* ---- 期バッジ ---- */
 .gen-badge {
@@ -896,7 +907,7 @@ function openMcModal(m, color) {
   }
   const subsEl = document.getElementById('mcModalSubs');
   if (m.subscribers != null) {
-    subsEl.innerHTML = `👥 <span class="subs-num">${m.subscribers.toLocaleString()}</span> 人`;
+    subsEl.innerHTML = `<span class="mc-stat-dot"></span> <span style="opacity:0.8; font-size:0.85rem;">登録者数</span> <span class="subs-num">${m.subscribers.toLocaleString()}</span> <span style="font-size:0.8rem; opacity:0.7;">人</span>`;
   } else {
     subsEl.innerHTML = '';
   }
