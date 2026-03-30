@@ -38,14 +38,14 @@ async function main() {
   for (const member of members) {
     const iconUrl = member.icon;
     // すでにローカルパスなら skip
-    if (!iconUrl || iconUrl.startsWith('/') || iconUrl.startsWith('./')) {
+    if (!iconUrl || !iconUrl.startsWith('http')) {
       console.log(`  ⏭  ${member.name}: すでにローカル`);
       continue;
     }
 
     const fileName   = `${safeName(member.name)}.jpg`;
     const localPath  = path.join(ICONS_DIR, fileName);
-    const publicPath = `/icons/${fileName}`;
+    const publicPath = `icons/${fileName}`;
 
     process.stdout.write(`  📥 ${member.name} ... `);
     try {
