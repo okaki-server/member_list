@@ -1,4 +1,4 @@
-name: Weekly Icon Update
+name: Weekly Maintenance
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:      # 手動実行可能
 
 jobs:
-  update-icons:
+  maintenance:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -24,6 +24,11 @@ jobs:
       - name: Install Dependencies
         run: npm install jsdom
 
+      - name: Update Featured Videos (API)
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: node scripts/update_recommendations_api.js
+
       - name: Fetch Latest YouTube Icons
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
@@ -40,6 +45,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "chore: weekly icon update [skip ci]"
+            git commit -m "chore: weekly maintenance (icons & featured videos) [skip ci]"
             git push
           fi

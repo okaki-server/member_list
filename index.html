@@ -1,1222 +1,2018 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>おかき鯖 | メンバー紹介</title>
-<meta name="description" content="kaki・たけぉが運営する『おかき鯖』のメンバー紹介ページ。本気でチャンネルを伸ばしたい意欲的な配信者が集まり、共に企画配信を楽しんだりノウハウを共有し合うクリエイターコミュニティです。">
-<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+Rounded+1c:wght@400;700&family=Press+Start+2P&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
-<style>
-:root {
-  --grass: #5d9c29;
-  --grass-top: #7bc141;
-  --dirt: #8b5e3c;
-  --dirt-dark: #6b4226;
-  --stone: #8e8e8e;
-  --stone-dark: #5f5f5f;
-  --sky: #87ceeb;
-  --sky-dark: #3a6ea5;
-  --wood: #9e7b44;
-  --gold: #ffd83d;
-  --diamond: #4de6e6;
-  --red: #c62a2a;
-  --text: #fff8e7;
-  --shadow: 4px 4px 0 rgba(0,0,0,.6);
-}
-html { scroll-behavior: smooth; }
-* { box-sizing: border-box; margin: 0; padding: 0; image-rendering: pixelated; }
-body {
-  font-family: 'M PLUS Rounded 1c', 'Zen Kaku Gothic New', sans-serif;
-  background-color: var(--sky-dark);
-  background-image:
-    linear-gradient(180deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #1a472a 100%);
-  min-height: 100vh;
-  color: var(--text);
-  overflow-x: hidden;
-}
-/* ---- パーティクルキャンバス ---- */
-#particleCanvas {
-  position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.6;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>おかき鯖 | メンバー紹介</title>
+  <meta name="description"
+    content="kaki・たけぉが運営する『おかき鯖』のメンバー紹介ページ。本気でチャンネルを伸ばしたい意欲的な配信者が集まり、共に企画配信を楽しんだりノウハウを共有し合うクリエイターコミュニティです。">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+Rounded+1c:wght@400;700&family=Press+Start+2P&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    rel="stylesheet">
+  <style>
+    :root {
+      --grass: #5d9c29;
+      --grass-top: #7bc141;
+      --dirt: #8b5e3c;
+      --dirt-dark: #6b4226;
+      --stone: #8e8e8e;
+      --stone-dark: #5f5f5f;
+      --sky: #87ceeb;
+      --sky-dark: #3a6ea5;
+      --wood: #9e7b44;
+      --gold: #ffd83d;
+      --diamond: #4de6e6;
+      --red: #c62a2a;
+      --text: #fff8e7;
+      --shadow: 4px 4px 0 rgba(0, 0, 0, .6);
+    }
 
-/* ---- 夜空 / 星 BG ---- */
-.night-sky {
-  position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
-}
-.star-px {
-  position: absolute; background: #fff; width: 2px; height: 2px;
-  animation: twinkle var(--td, 3s) ease-in-out infinite;
-  opacity: var(--op, 0.8);
-}
-@keyframes twinkle { 0%,100%{opacity:0.2} 50%{opacity:var(--op,0.9)} }
+    html {
+      scroll-behavior: smooth;
+    }
 
-/* ブロックBG（地面） */
-.ground-strip {
-  position: fixed; bottom: 0; left: 0; right: 0; height: 64px;
-  background: linear-gradient(0deg, var(--dirt-dark) 0, var(--dirt) 50%, var(--grass) 70%, var(--grass-top) 100%);
-  z-index: 52;
-  border-top: 4px solid rgba(0,0,0,.4);
-  box-shadow: inset 0 4px 0 rgba(255,255,255,.15);
-}
-.ground-strip::before {
-  content:'';position:absolute;inset:0;width:100%;
-  background-image: repeating-linear-gradient(90deg,rgba(0,0,0,.1) 0,rgba(0,0,0,.1) 2px,transparent 2px,transparent 64px);
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      image-rendering: pixelated;
+    }
 
-/* ---- LAYOUT ---- */
-#app { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 0 1.5rem 6rem; }
+    body {
+      font-family: 'M PLUS Rounded 1c', 'Zen Kaku Gothic New', sans-serif;
+      background-color: var(--sky-dark);
+      background-image:
+        linear-gradient(180deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #1a472a 100%);
+      min-height: 100vh;
+      color: var(--text);
+      overflow-x: hidden;
+    }
 
-/* ---- TITLE SCREEN ---- */
-.title-screen {
-  min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 2rem; gap: 1.5rem;
-}
-.mc-logo-wrap { position: relative; display: inline-block; transition: transform 0.1s ease-out; }
-.mc-logo-wrap:hover {
-  animation: logoShake 0.4s ease-in-out infinite alternate;
-  cursor: crosshair;
-}
-@keyframes logoShake {
-  0% { transform: rotate(-2deg) scale(1.02); }
-  100% { transform: rotate(2deg) scale(1.02); }
-}
-.mc-logo {
-  font-family: 'DotGothic16', monospace;
-  font-size: clamp(1.6rem, 6vw, 3.5rem);
-  color: #fff;
-  text-shadow: 4px 4px 0 #3d3d3d, -2px -2px 0 rgba(255,255,255,.2);
-  line-height: 1.5;
-  letter-spacing: .08em;
-  font-weight: 700;
-}
-.mc-logo .highlight {
-  display: block;
-  font-size: clamp(2rem, 8vw, 4.5rem);
-  color: var(--gold);
-  text-shadow: 6px 6px 0 #7a5900, 0 0 25px rgba(255,216,61,.6);
-  animation: goldGlow 2s ease-in-out infinite;
-  margin-bottom: -0.2em;
-}
-@keyframes goldGlow { 0%,100%{text-shadow:6px 6px 0 #7a5900,0 0 25px rgba(255,216,61,.6)} 50%{text-shadow:6px 6px 0 #7a5900,0 0 50px rgba(255,216,61,1),0 0 90px rgba(255,216,61,.5)} }
-.mc-sub {
-  font-size: clamp(.9rem, 2.5vw, 1.2rem);
-  color: rgba(255,248,231,.9);
-  letter-spacing: .15em;
-  text-shadow: 2px 2px 0 #000;
-  margin-top: 1rem;
-  font-family: 'DotGothic16', monospace;
-}
-.mc-btn {
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  font-weight: 700;
-  font-size: clamp(.8rem, 2.5vw, 1.1rem);
-  background: var(--stone);
-  color: var(--text);
-  border: none; border-bottom: 6px solid var(--stone-dark); border-right: 6px solid var(--stone-dark);
-  padding: 1rem 2.5rem; cursor: pointer;
-  text-shadow: 2px 2px 0 #000;
-  transition: all .15s;
-  letter-spacing: .08em;
-  position: relative;
-  box-shadow: inset 2px 2px 0 rgba(255,255,255,.25);
-  border-radius: 4px;
-}
-.mc-btn:hover { background: #bbb; transform: translateY(-3px); box-shadow: inset 2px 2px 0 rgba(255,255,255,.3), 0 8px 12px rgba(0,0,0,0.4); }
-.mc-btn:active { border-bottom-width: 2px; border-right-width: 2px; transform: translate(4px,4px); box-shadow: none; }
-.mc-btn::before { content:'▶  '; }
-.mc-version { font-size: .5rem; color: rgba(255,248,231,.4); text-shadow: 1px 1px 0 #000; }
+    /* ---- パーティクルキャンバス ---- */
+    #particleCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.6;
+    }
 
-/* ---- MEMBER SECTION ---- */
-.member-section { padding: 4rem 0; }
-.mc-section-title {
-  font-family: 'DotGothic16', monospace;
-  font-size: clamp(1rem, 2.5vw, 1.35rem);
-  color: var(--gold);
-  text-shadow: 3px 3px 0 #7a5900;
-  text-align: center;
-  margin-bottom: 2.5rem;
-  letter-spacing: .12em;
-}
+    /* ---- 夜空 / 星 BG ---- */
+    .night-sky {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
 
-/* ---- INVENTORY GRID ---- */
-.inv-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 10px;
-}
-.inv-grid--center {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-}
-.inv-grid--center .inv-slot {
-  width: 160px;
-  flex-shrink: 0;
-}
+    .star-px {
+      position: absolute;
+      background: #fff;
+      width: 2px;
+      height: 2px;
+      animation: twinkle var(--td, 3s) ease-in-out infinite;
+      opacity: var(--op, 0.8);
+    }
 
-.inv-slot {
-  background: #8b8b8b;
-  border-top: 4px solid #c8c8c8; border-left: 4px solid #c8c8c8;
-  border-bottom: 4px solid #373737; border-right: 4px solid #373737;
-  padding: .85rem .65rem;
-  cursor: pointer;
-  display: flex; flex-direction: column; align-items: center; gap: .5rem;
-  transition: filter .1s;
-  opacity: 0; transform: scale(.85);
-  position: relative;
-}
-.inv-slot.vis { animation: blockPop .35s cubic-bezier(.34,1.56,.64,1) forwards; }
-@keyframes blockPop { to { opacity:1; transform:none; } }
-.inv-slot:hover {
-  border-color: var(--gold);
-  filter: brightness(1.25);
-}
-.inv-slot:hover::after {
-  content:''; position:absolute; inset: -2px;
-  box-shadow: 0 0 0 4px var(--gold), 0 0 16px var(--gold);
-  pointer-events:none;
-}
-.inv-slot.active {
-  border-color: var(--gold);
-  background: #7a7a3f;
-  box-shadow: 0 0 0 3px var(--gold), 0 0 20px rgba(255,216,61,.6);
-}
-.slot-av {
-  width: 120px; height: 120px; border: 2px solid rgba(0,0,0,.5);
-  overflow: hidden; display: flex; align-items: center; justify-content: center;
-  position: relative;
-}
-.slot-av img { width: 100%; height: 100%; object-fit: cover; display: block; image-rendering: auto; }
-.slot-av::after {
-  content:''; position:absolute; inset:0;
-  background: linear-gradient(135deg, rgba(255,255,255,.2) 0%, transparent 50%);
-  pointer-events:none;
-}
-.slot-num {
-  position: absolute; top: 2px; right: 4px;
-  font-family: 'Press Start 2P', monospace;
-  font-size: .4rem; color: rgba(255,248,231,.7);
-  text-shadow: 1px 1px 0 #000;
-}
-.slot-name {
-  font-size: .82rem; text-align: center; line-height: 1.4; color: var(--text);
-  text-shadow: 1px 1px 0 #000; max-width: 100%; overflow: hidden;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-clamp: 2;
-}
+    @keyframes twinkle {
 
-/* ---- MODAL (インベントリ風) ---- */
-.mc-modal-bg {
-  position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 100;
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none; transition: opacity .2s;
-}
-.mc-modal-bg.open { opacity: 1; pointer-events: all; }
-.mc-modal {
-  background: #c6c6c6;
-  border-top: 4px solid #fff; border-left: 4px solid #fff;
-  border-bottom: 6px solid #555; border-right: 6px solid #555;
-  max-width: 680px; width: 95%; max-height: 92vh; overflow-y: auto;
-  padding: 0;
-  transform: scale(.85); transition: transform .25s cubic-bezier(.34,1.56,.64,1);
-}
-.mc-modal-bg.open .mc-modal { transform: none; }
+      0%,
+      100% {
+        opacity: 0.2
+      }
 
-.mc-modal-header {
-  background: #6b6b6b; padding: .7rem 1rem;
-  border-bottom: 4px solid #373737;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.mc-modal-header-title { font-family:'Zen Kaku Gothic New',sans-serif; font-size:1.15rem; font-weight:700; color:var(--text); text-shadow:2px 2px 0 rgba(0,0,0,.5); letter-spacing:.02em; }
-.mc-modal-close {
-  font-family:'Press Start 2P',monospace; font-size:.6rem;
-  background: var(--red); color: #fff; border: none;
-  border-bottom: 3px solid #7a0000; border-right: 3px solid #7a0000;
-  padding: .35rem .6rem; cursor: pointer; font-family: inherit;
-}
-.mc-modal-close:hover { background: #e03333; }
+      50% {
+        opacity: var(--op, 0.9)
+      }
+    }
 
-.mc-modal-body {
-  padding: 1.25rem;
-  display: grid; grid-template-columns: 168px 1fr; gap: 1.5rem;
-  background: #c6c6c6;
-}
-.mc-modal-av {
-  width: 168px; height: 168px;
-  background: #8b8b8b;
-  border-top: 2px solid #fff; border-left: 2px solid #fff;
-  border-bottom: 3px solid #373737; border-right: 3px solid #373737;
-  overflow: hidden; display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.mc-modal-av img { width:100%;height:100%;object-fit:cover; }
-.mc-modal-info { display: flex; flex-direction: column; }
-.mc-modal-name { font-size: 1.2rem; font-weight: 700; color: #1a1a1a; margin-bottom: .2rem; font-family: 'Zen Kaku Gothic New', sans-serif; }
-.mc-modal-subs {
-  display: flex; align-items: center; gap: 10px;
-  font-family: 'DotGothic16', monospace; font-size: 0.95rem;
-  color: #333; margin-bottom: .8rem;
-}
-.mc-modal-subs .subs-num {
-  font-family: 'Press Start 2P', monospace; font-size: 1.15rem;
-  color: var(--grass); text-shadow: 1px 1px 0 rgba(0,0,0,.15);
-  margin: 0 4px;
-}
-.mc-stat-dot {
-  width: 14px; height: 14px; flex-shrink: 0;
-  background: var(--gold); border: 2px solid #7a5900;
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  display: inline-block;
-}
+    /* ブロックBG（地面） */
+    .ground-strip {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: linear-gradient(0deg, var(--dirt-dark) 0, var(--dirt) 50%, var(--grass) 70%, var(--grass-top) 100%);
+      z-index: 52;
+      border-top: 4px solid rgba(0, 0, 0, .4);
+      box-shadow: inset 0 4px 0 rgba(255, 255, 255, .15);
+    }
 
-/* ---- 期バッジ ---- */
-.gen-badge {
-  display: inline-block;
-  font-family: 'DotGothic16', monospace;
-  font-size: 1rem;
-  padding: .25rem .7rem;
-  margin-bottom: .6rem;
-  border-bottom: 3px solid; border-right: 3px solid;
-  border-top: 2px solid rgba(255,255,255,.3); border-left: 2px solid rgba(255,255,255,.3);
-  letter-spacing: .06em;
-  text-shadow: 1px 1px 0 rgba(0,0,0,.5);
-  color: #fff;
-}
-.gen-badge.gen-1 { background: #5f5f5f; border-color: #333 #222 #222 #333; }
-.gen-badge.gen-2 { background: #0077b6; border-color: #003f67 #00243d #00243d #003f67; }
-.gen-badge.gen-3 { background: #7b2d8b; border-color: #4a1557 #2a0a33 #2a0a33 #4a1557; }
+    .ground-strip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      background-image: repeating-linear-gradient(90deg, rgba(0, 0, 0, .1) 0, rgba(0, 0, 0, .1) 2px, transparent 2px, transparent 64px);
+    }
 
-.mc-modal-bio { font-size: .95rem; color: #222; line-height: 2; margin-bottom: .75rem; font-family: 'Zen Kaku Gothic New', sans-serif; }
-.mc-modal-links { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: .75rem; }
-.mc-link {
-  font-family: 'Press Start 2P', monospace; font-size: .58rem;
-  padding: .5rem .8rem; border: none; cursor: pointer; text-decoration: none;
-  border-bottom: 3px solid; border-right: 3px solid; color: #fff; text-shadow: 1px 1px 0 #000;
-  transition: filter .1s;
-}
-.mc-link:hover { filter: brightness(1.3); }
-.mc-link-yt { background: #c43d2e; border-color: #7a1e12; }
-.mc-link-x  { background: #2e3a4e; border-color: #111c2e; }
+    /* ---- LAYOUT ---- */
+    #app {
+      position: relative;
+      z-index: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.5rem 6rem;
+    }
 
-/* 動画セクション */
-.mc-vid-section { border-top: 2px solid #aaa; padding-top: .75rem; grid-column: 1 / -1; }
-.mc-vid-label { font-family:'Press Start 2P',monospace; font-size:.62rem; color:#555; letter-spacing:.1em; text-transform:uppercase; margin-bottom:.6rem; }
-.mc-vid-thumb {
-  position: relative; width: 100%; aspect-ratio: 16/9;
-  background: #555; border-top: 2px solid #888; border-left: 2px solid #888;
-  border-bottom: 3px solid #222; border-right: 3px solid #222;
-  cursor: pointer; overflow: hidden;
-}
-.mc-vid-thumb img { width:100%;height:100%;object-fit:cover;display:block; }
-.mc-vid-overlay {
-  position:absolute;inset:0;background:rgba(0,0,0,.45);
-  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;
-  transition:background .2s;
-}
-.mc-vid-thumb:hover .mc-vid-overlay { background: rgba(0,0,0,.25); }
-.mc-vid-play {
-  font-family:'Press Start 2P',monospace; font-size:1.2rem; color:var(--gold);
-  text-shadow:3px 3px 0 #000; animation: goldGlow 2s ease-in-out infinite;
-}
-.mc-vid-text { font-family:'Press Start 2P',monospace; font-size:.45rem; color:#fff; text-shadow:2px 2px 0 #000; }
-.no-rec-mc { font-size:.82rem; color:#555; text-align:center; padding:.75rem; border:2px dashed #aaa; }
+    /* ---- TITLE SCREEN ---- */
+    .title-screen {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      gap: 1.5rem;
+    }
 
-/* ---- ギャラリーセクション ---- */
-.mc-gallery-section { border-top: 2px solid #aaa; padding-top: .75rem; margin-top: .75rem; grid-column: 1 / -1; }
-.mc-gallery-label { font-family:'Press Start 2P',monospace; font-size:.62rem; color:#555; letter-spacing:.1em; text-transform:uppercase; margin-bottom:.6rem; }
-.mc-gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 4px;
-}
-@media(max-width: 580px) {
-  .mc-gallery-grid {
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 4px;
-  }
-}
-.mc-gallery-item {
-  aspect-ratio: 3/4;
-  background: #7a7a7a;
-  border-top: 2px solid #c8c8c8; border-left: 2px solid #c8c8c8;
-  border-bottom: 3px solid #222; border-right: 3px solid #222;
-  cursor: pointer; overflow: hidden; position: relative;
-  transition: filter .1s;
-}
-.mc-gallery-item:hover { filter: brightness(1.3); }
-.mc-gallery-item:hover::after {
-  content:''; position:absolute; inset:-1px;
-  box-shadow: 0 0 0 3px var(--gold), 0 0 12px var(--gold);
-  pointer-events:none;
-}
-.mc-gallery-item img { width:100%; height:100%; object-fit:cover; display:block; }
-.mc-gallery-placeholder {
-  width:100%; height:100%;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:4px; background: #5a5a5a;
-  border-top: 2px solid rgba(255,255,255,.15); border-left: 2px solid rgba(255,255,255,.15);
-}
-.mc-gallery-placeholder .ph-icon { font-size:1.5rem; }
-.mc-gallery-placeholder .ph-label { font-size:.42rem; color:rgba(255,248,231,.5); font-family:'Press Start 2P',monospace; text-align:center; line-height:1.5; }
-.mc-gallery-item-num {
-  position:absolute; bottom:2px; right:4px;
-  font-family:'Press Start 2P',monospace; font-size:.35rem;
-  color:rgba(255,248,231,.7); text-shadow:1px 1px 0 #000;
-}
+    .mc-logo-wrap {
+      position: relative;
+      display: inline-block;
+      transition: transform 0.1s ease-out;
+    }
 
-/* ---- ライトボックス (フルスクリーン) ---- */
-.mc-lb-bg {
-  position: fixed; inset: 0; background: rgba(0,0,0,.0); z-index: 400;
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity .25s, background .25s;
-}
-.mc-lb-bg.open {
-  opacity: 1; pointer-events: all;
-  background: rgba(0,0,0,.92);
-}
-/* 画像本体 */
-.mc-lb-img-wrap {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  padding: 52px 72px; /* オーバーレイUI分の余白 */
-}
-.mc-lb-img-wrap img {
-  max-width: 100%; max-height: 100%;
-  object-fit: contain; object-position: center;
-  image-rendering: auto; display: block;
-  transform: scale(.92); transition: transform .3s cubic-bezier(.34,1.56,.64,1);
-}
-.mc-lb-bg.open .mc-lb-img-wrap img { transform: none; }
-/* スマホ: 縦長画像をスクロールで全体を見られるようにする */
-@media(max-width: 580px) {
-  .mc-lb-img-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    padding: 52px 8px 20px;
-  }
-  .mc-lb-img-wrap img {
-    max-width: 100%;
-    max-height: none;          /* 高さ制限を外して全体を表示 */
-    height: auto;
-    /* margin auto: スペースがあれば中央、オーバーフロー時は0に縮んで上端スクロール */
-    margin-top: auto;
-    margin-bottom: auto;
-    flex-shrink: 0;
-    touch-action: pan-y pinch-zoom; /* スクロール＋ピンチズーム許可 */
-  }
-}
-/* プレースホルダー */
-.mc-lb-ph {
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:12px; color:rgba(255,248,231,.5); width:100%; height:100%;
-}
-.mc-lb-ph .ph-big { font-size:3rem; }
-.mc-lb-ph .ph-txt { font-family:'Press Start 2P',monospace; font-size:.5rem; line-height:2; text-align:center; }
-/* 閉じるボタン (右上) */
-.mc-lb-close {
-  position: absolute; top: 14px; right: 16px; z-index: 10;
-  font-size: 1.3rem; line-height: 1; width: 40px; height: 40px;
-  background: rgba(0,0,0,.55); color: rgba(255,255,255,.85);
-  border: 1px solid rgba(255,255,255,.2); border-radius: 50%;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: background .15s, color .15s;
-  font-family: sans-serif;
-}
-.mc-lb-close:hover { background: var(--red); color: #fff; }
-/* カウンター (上中央) */
-.mc-lb-counter {
-  position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
-  font-family: 'DotGothic16', monospace; font-size: .85rem;
-  color: rgba(255,255,255,.6); background: rgba(0,0,0,.45);
-  padding: .25rem .8rem; border-radius: 999px;
-  pointer-events: none;
-}
-/* 前後ナビボタン */
-.mc-lb-nav {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  width: 48px; height: 64px; z-index: 10;
-  background: rgba(0,0,0,.45); color: rgba(255,255,255,.8);
-  border: 1px solid rgba(255,255,255,.15);
-  cursor: pointer; font-size: 1.4rem;
-  display: flex; align-items: center; justify-content: center;
-  transition: background .15s, color .15s;
-  font-family: sans-serif; border-radius: 4px;
-}
-.mc-lb-nav:hover { background: rgba(255,255,255,.18); color: #fff; }
-.mc-lb-nav:disabled { opacity: 0; pointer-events: none; }
-#mcLbPrev { left: 12px; }
-#mcLbNext { right: 12px; }
+    .mc-logo-wrap:hover {
+      animation: logoShake 0.4s ease-in-out infinite alternate;
+      cursor: crosshair;
+    }
+
+    @keyframes logoShake {
+      0% {
+        transform: rotate(-2deg) scale(1.02);
+      }
+
+      100% {
+        transform: rotate(2deg) scale(1.02);
+      }
+    }
+
+    .mc-logo {
+      font-family: 'DotGothic16', monospace;
+      font-size: clamp(1.6rem, 6vw, 3.5rem);
+      color: #fff;
+      text-shadow: 4px 4px 0 #3d3d3d, -2px -2px 0 rgba(255, 255, 255, .2);
+      line-height: 1.5;
+      letter-spacing: .08em;
+      font-weight: 700;
+    }
+
+    .mc-logo .highlight {
+      display: block;
+      font-size: clamp(2rem, 8vw, 4.5rem);
+      color: var(--gold);
+      text-shadow: 6px 6px 0 #7a5900, 0 0 25px rgba(255, 216, 61, .6);
+      animation: goldGlow 2s ease-in-out infinite;
+      margin-bottom: -0.2em;
+    }
+
+    @keyframes goldGlow {
+
+      0%,
+      100% {
+        text-shadow: 6px 6px 0 #7a5900, 0 0 25px rgba(255, 216, 61, .6)
+      }
+
+      50% {
+        text-shadow: 6px 6px 0 #7a5900, 0 0 50px rgba(255, 216, 61, 1), 0 0 90px rgba(255, 216, 61, .5)
+      }
+    }
+
+    .mc-sub {
+      font-size: clamp(.9rem, 2.5vw, 1.2rem);
+      color: rgba(255, 248, 231, .9);
+      letter-spacing: .15em;
+      text-shadow: 2px 2px 0 #000;
+      margin-top: 1rem;
+      font-family: 'DotGothic16', monospace;
+    }
+
+    .mc-btn {
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-weight: 700;
+      font-size: clamp(.8rem, 2.5vw, 1.1rem);
+      background: var(--stone);
+      color: var(--text);
+      border: none;
+      border-bottom: 6px solid var(--stone-dark);
+      border-right: 6px solid var(--stone-dark);
+      padding: 1rem 2.5rem;
+      cursor: pointer;
+      text-shadow: 2px 2px 0 #000;
+      transition: all .15s;
+      letter-spacing: .08em;
+      position: relative;
+      box-shadow: inset 2px 2px 0 rgba(255, 255, 255, .25);
+      border-radius: 4px;
+    }
+
+    .mc-btn:hover {
+      background: #bbb;
+      transform: translateY(-3px);
+      box-shadow: inset 2px 2px 0 rgba(255, 255, 255, .3), 0 8px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .mc-btn:active {
+      border-bottom-width: 2px;
+      border-right-width: 2px;
+      transform: translate(4px, 4px);
+      box-shadow: none;
+    }
+
+    .mc-btn::before {
+      content: '▶  ';
+    }
+
+    .mc-version {
+      font-size: .5rem;
+      color: rgba(255, 248, 231, .4);
+      text-shadow: 1px 1px 0 #000;
+    }
+
+    /* ---- MEMBER SECTION ---- */
+    .member-section {
+      padding: 4rem 0;
+    }
+
+    .mc-section-title {
+      font-family: 'DotGothic16', monospace;
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: var(--gold);
+      text-shadow: 3px 3px 0 #7a5900;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      letter-spacing: .12em;
+    }
+
+    /* ---- INVENTORY GRID ---- */
+    .inv-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+    }
+
+    .inv-grid--center {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .inv-grid--center .inv-slot {
+      width: 160px;
+      flex-shrink: 0;
+    }
+
+    .inv-slot {
+      background: #8b8b8b;
+      border-top: 4px solid #c8c8c8;
+      border-left: 4px solid #c8c8c8;
+      border-bottom: 4px solid #373737;
+      border-right: 4px solid #373737;
+      padding: .85rem .65rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      transition: filter .1s;
+      opacity: 0;
+      transform: scale(.85);
+      position: relative;
+    }
+
+    .inv-slot.vis {
+      animation: blockPop .35s cubic-bezier(.34, 1.56, .64, 1) forwards;
+    }
+
+    @keyframes blockPop {
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .inv-slot:hover {
+      border-color: var(--gold);
+      filter: brightness(1.25);
+    }
+
+    .inv-slot:hover::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      box-shadow: 0 0 0 4px var(--gold), 0 0 16px var(--gold);
+      pointer-events: none;
+    }
+
+    .inv-slot.active {
+      border-color: var(--gold);
+      background: #7a7a3f;
+      box-shadow: 0 0 0 3px var(--gold), 0 0 20px rgba(255, 216, 61, .6);
+    }
+
+    .slot-av {
+      width: 120px;
+      height: 120px;
+      border: 2px solid rgba(0, 0, 0, .5);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .slot-av img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      image-rendering: auto;
+    }
+
+    .slot-av::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, .2) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .slot-num {
+      position: absolute;
+      top: 2px;
+      right: 4px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: .4rem;
+      color: rgba(255, 248, 231, .7);
+      text-shadow: 1px 1px 0 #000;
+    }
+
+    .slot-name {
+      font-size: .82rem;
+      text-align: center;
+      line-height: 1.4;
+      color: var(--text);
+      text-shadow: 1px 1px 0 #000;
+      max-width: 100%;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-clamp: 2;
+    }
+
+    /* ---- MODAL (インベントリ風) ---- */
+    .mc-modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .7);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s;
+    }
+
+    .mc-modal-bg.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .mc-modal {
+      background: #c6c6c6;
+      border-top: 4px solid #fff;
+      border-left: 4px solid #fff;
+      border-bottom: 6px solid #555;
+      border-right: 6px solid #555;
+      max-width: 680px;
+      width: 95%;
+      max-height: 92vh;
+      overflow-y: auto;
+      padding: 0;
+      transform: scale(.85);
+      transition: transform .25s cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    .mc-modal-bg.open .mc-modal {
+      transform: none;
+    }
+
+    .mc-modal-header {
+      background: #6b6b6b;
+      padding: .7rem 1rem;
+      border-bottom: 4px solid #373737;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mc-modal-header-title {
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, .5);
+      letter-spacing: .02em;
+    }
+
+    .mc-modal-close {
+      font-family: 'Press Start 2P', monospace;
+      font-size: .6rem;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-bottom: 3px solid #7a0000;
+      border-right: 3px solid #7a0000;
+      padding: .35rem .6rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .mc-modal-close:hover {
+      background: #e03333;
+    }
+
+    .mc-modal-body {
+      padding: 1.25rem;
+      display: grid;
+      grid-template-columns: 168px 1fr;
+      gap: 1.5rem;
+      background: #c6c6c6;
+    }
+
+    .mc-modal-av {
+      width: 168px;
+      height: 168px;
+      background: #8b8b8b;
+      border-top: 2px solid #fff;
+      border-left: 2px solid #fff;
+      border-bottom: 3px solid #373737;
+      border-right: 3px solid #373737;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .mc-modal-av img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .mc-modal-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mc-modal-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: .2rem;
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+    }
+
+    .mc-modal-subs {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'DotGothic16', monospace;
+      font-size: 0.95rem;
+      color: #333;
+      margin-bottom: .8rem;
+    }
+
+    .mc-modal-subs .subs-num {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.15rem;
+      color: var(--grass);
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, .15);
+      margin: 0 4px;
+    }
+
+    .mc-stat-dot {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      background: var(--gold);
+      border: 2px solid #7a5900;
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      display: inline-block;
+    }
+
+    /* ---- 期バッジ ---- */
+    .gen-badge {
+      display: inline-block;
+      font-family: 'DotGothic16', monospace;
+      font-size: 1rem;
+      padding: .25rem .7rem;
+      margin-bottom: .6rem;
+      border-bottom: 3px solid;
+      border-right: 3px solid;
+      border-top: 2px solid rgba(255, 255, 255, .3);
+      border-left: 2px solid rgba(255, 255, 255, .3);
+      letter-spacing: .06em;
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, .5);
+      color: #fff;
+    }
+
+    .gen-badge.gen-1 {
+      background: #5f5f5f;
+      border-color: #333 #222 #222 #333;
+    }
+
+    .gen-badge.gen-2 {
+      background: #0077b6;
+      border-color: #003f67 #00243d #00243d #003f67;
+    }
+
+    .gen-badge.gen-3 {
+      background: #7b2d8b;
+      border-color: #4a1557 #2a0a33 #2a0a33 #4a1557;
+    }
+
+    .mc-modal-bio {
+      font-size: .95rem;
+      color: #222;
+      line-height: 2;
+      margin-bottom: .75rem;
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+    }
+
+    .mc-modal-links {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-bottom: .75rem;
+    }
+
+    .mc-link {
+      font-family: 'Press Start 2P', monospace;
+      font-size: .58rem;
+      padding: .5rem .8rem;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      border-bottom: 3px solid;
+      border-right: 3px solid;
+      color: #fff;
+      text-shadow: 1px 1px 0 #000;
+      transition: filter .1s;
+    }
+
+    .mc-link:hover {
+      filter: brightness(1.3);
+    }
+
+    .mc-link-yt {
+      background: #c43d2e;
+      border-color: #7a1e12;
+    }
+
+    .mc-link-x {
+      background: #2e3a4e;
+      border-color: #111c2e;
+    }
+
+    /* 動画セクション */
+    .mc-vid-section {
+      border-top: 2px solid #aaa;
+      padding-top: .75rem;
+      grid-column: 1 / -1;
+    }
+
+    .mc-vid-label {
+      font-family: 'Press Start 2P', monospace;
+      font-size: .62rem;
+      color: #555;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: .6rem;
+    }
+
+    .mc-vid-thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #555;
+      border-top: 2px solid #888;
+      border-left: 2px solid #888;
+      border-bottom: 3px solid #222;
+      border-right: 3px solid #222;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .mc-vid-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .mc-vid-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, .45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: .5rem;
+      transition: background .2s;
+    }
+
+    .mc-vid-thumb:hover .mc-vid-overlay {
+      background: rgba(0, 0, 0, .25);
+    }
+
+    .mc-vid-play {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.2rem;
+      color: var(--gold);
+      text-shadow: 3px 3px 0 #000;
+      animation: goldGlow 2s ease-in-out infinite;
+    }
+
+    .mc-vid-text {
+      font-family: 'Press Start 2P', monospace;
+      font-size: .45rem;
+      color: #fff;
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    .no-rec-mc {
+      font-size: .82rem;
+      color: #555;
+      text-align: center;
+      padding: .75rem;
+      border: 2px dashed #aaa;
+    }
+
+    /* ---- ギャラリーセクション ---- */
+    .mc-gallery-section {
+      border-top: 2px solid #aaa;
+      padding-top: .75rem;
+      margin-top: .75rem;
+      grid-column: 1 / -1;
+    }
+
+    .mc-gallery-label {
+      font-family: 'Press Start 2P', monospace;
+      font-size: .62rem;
+      color: #555;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: .6rem;
+    }
+
+    .mc-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 4px;
+    }
+
+    @media(max-width: 580px) {
+      .mc-gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 4px;
+      }
+    }
+
+    .mc-gallery-item {
+      aspect-ratio: 3/4;
+      background: #7a7a7a;
+      border-top: 2px solid #c8c8c8;
+      border-left: 2px solid #c8c8c8;
+      border-bottom: 3px solid #222;
+      border-right: 3px solid #222;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+      transition: filter .1s;
+    }
+
+    .mc-gallery-item:hover {
+      filter: brightness(1.3);
+    }
+
+    .mc-gallery-item:hover::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      box-shadow: 0 0 0 3px var(--gold), 0 0 12px var(--gold);
+      pointer-events: none;
+    }
+
+    .mc-gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .mc-gallery-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      background: #5a5a5a;
+      border-top: 2px solid rgba(255, 255, 255, .15);
+      border-left: 2px solid rgba(255, 255, 255, .15);
+    }
+
+    .mc-gallery-placeholder .ph-icon {
+      font-size: 1.5rem;
+    }
+
+    .mc-gallery-placeholder .ph-label {
+      font-size: .42rem;
+      color: rgba(255, 248, 231, .5);
+      font-family: 'Press Start 2P', monospace;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .mc-gallery-item-num {
+      position: absolute;
+      bottom: 2px;
+      right: 4px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: .35rem;
+      color: rgba(255, 248, 231, .7);
+      text-shadow: 1px 1px 0 #000;
+    }
+
+    /* ---- ライトボックス (フルスクリーン) ---- */
+    .mc-lb-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .0);
+      z-index: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s, background .25s;
+    }
+
+    .mc-lb-bg.open {
+      opacity: 1;
+      pointer-events: all;
+      background: rgba(0, 0, 0, .92);
+    }
+
+    /* 画像本体 */
+    .mc-lb-img-wrap {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 52px 72px;
+      /* オーバーレイUI分の余白 */
+    }
+
+    .mc-lb-img-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      object-position: center;
+      image-rendering: auto;
+      display: block;
+      transform: scale(.92);
+      transition: transform .3s cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    .mc-lb-bg.open .mc-lb-img-wrap img {
+      transform: none;
+    }
+
+    /* スマホ: 縦長画像をスクロールで全体を見られるようにする */
+    @media(max-width: 580px) {
+      .mc-lb-img-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        padding: 52px 8px 20px;
+      }
+
+      .mc-lb-img-wrap img {
+        max-width: 100%;
+        max-height: none;
+        /* 高さ制限を外して全体を表示 */
+        height: auto;
+        /* margin auto: スペースがあれば中央、オーバーフロー時は0に縮んで上端スクロール */
+        margin-top: auto;
+        margin-bottom: auto;
+        flex-shrink: 0;
+        touch-action: pan-y pinch-zoom;
+        /* スクロール＋ピンチズーム許可 */
+      }
+    }
+
+    /* プレースホルダー */
+    .mc-lb-ph {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: rgba(255, 248, 231, .5);
+      width: 100%;
+      height: 100%;
+    }
+
+    .mc-lb-ph .ph-big {
+      font-size: 3rem;
+    }
+
+    .mc-lb-ph .ph-txt {
+      font-family: 'Press Start 2P', monospace;
+      font-size: .5rem;
+      line-height: 2;
+      text-align: center;
+    }
+
+    /* 閉じるボタン (右上) */
+    .mc-lb-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      z-index: 10;
+      font-size: 1.3rem;
+      line-height: 1;
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 0, 0, .55);
+      color: rgba(255, 255, 255, .85);
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s, color .15s;
+      font-family: sans-serif;
+    }
+
+    .mc-lb-close:hover {
+      background: var(--red);
+      color: #fff;
+    }
+
+    /* カウンター (上中央) */
+    .mc-lb-counter {
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'DotGothic16', monospace;
+      font-size: .85rem;
+      color: rgba(255, 255, 255, .6);
+      background: rgba(0, 0, 0, .45);
+      padding: .25rem .8rem;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    /* 前後ナビボタン */
+    .mc-lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 64px;
+      z-index: 10;
+      background: rgba(0, 0, 0, .45);
+      color: rgba(255, 255, 255, .8);
+      border: 1px solid rgba(255, 255, 255, .15);
+      cursor: pointer;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s, color .15s;
+      font-family: sans-serif;
+      border-radius: 4px;
+    }
+
+    .mc-lb-nav:hover {
+      background: rgba(255, 255, 255, .18);
+      color: #fff;
+    }
+
+    .mc-lb-nav:disabled {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #mcLbPrev {
+      left: 12px;
+    }
+
+    #mcLbNext {
+      right: 12px;
+    }
 
 
-footer { text-align:center;padding:3rem 0 1rem;font-size:.6rem;color:rgba(255,248,231,.4);text-shadow:1px 1px 0 #000; }
+    footer {
+      text-align: center;
+      padding: 3rem 0 1rem;
+      font-size: .6rem;
+      color: rgba(255, 248, 231, .4);
+      text-shadow: 1px 1px 0 #000;
+    }
 
-@media(max-width:580px){
-  .mc-modal-body { grid-template-columns: 1fr; justify-items: center; }
-  .mc-modal-av { width: 150px; height: 150px; }
-  .mc-modal-info { width: 100%; }
-}
+    @media(max-width:580px) {
+      .mc-modal-body {
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
 
-/* ===== STICKY HEADER ===== */
-.mc-header {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 60;
-  background: rgba(20,20,20,.96); backdrop-filter: blur(6px);
-  border-bottom: 4px solid #000;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: .55rem 1.25rem;
-  transform: translateY(-110%); transition: transform .35s cubic-bezier(.22,1,.36,1);
-  box-shadow: 0 4px 0 rgba(0,0,0,.6);
-}
-.mc-header.visible { transform: none; }
-@media(max-width:768px){ .mc-header { display: none; } }
-.mc-header-logo {
-  font-family: 'Press Start 2P', monospace; font-size: .75rem;
-  color: var(--gold); text-shadow: 2px 2px 0 #7a5900;
-  cursor: pointer; border: none; background: none;
-  transition: filter .1s;
-}
-.mc-header-logo:hover { filter: brightness(1.3); }
-.mc-header-nav { display: flex; gap: .4rem; flex-wrap: wrap; }
-.mc-nav-btn {
-  font-family: 'Press Start 2P', monospace; font-size: .6rem;
-  color: var(--text); background: var(--stone-dark); border: none;
-  border-bottom: 3px solid #222; border-right: 3px solid #222;
-  border-top: 2px solid rgba(255,255,255,.15); border-left: 2px solid rgba(255,255,255,.15);
-  padding: .4rem .75rem; cursor: pointer; text-shadow: 1px 1px 0 #000;
-  transition: filter .15s, background .15s;
-}
-.mc-nav-btn:hover { filter: brightness(1.4); }
-.mc-nav-btn.active { background: var(--gold); color: #000; text-shadow: none; border-color: #7a5900 #3a2a00 #3a2a00 #7a5900; }
+      .mc-modal-av {
+        width: 150px;
+        height: 150px;
+      }
 
-/* ===== SIDE NAV ===== */
-.mc-side-nav {
-  position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%);
-  z-index: 55; display: flex; flex-direction: column; gap: 1.2rem; align-items: flex-end;
-}
-@media(max-width:768px){ .mc-side-nav { display: none; } }
-.mc-side-item { position: relative; cursor: pointer; display: flex; align-items: center; gap: .65rem; justify-content: flex-end; }
-.mc-side-label {
-  font-family: 'Press Start 2P', monospace; font-size: .55rem;
-  color: var(--text); background: rgba(0,0,0,.88); padding: .35rem .75rem;
-  border: 2px solid #555; border-bottom: 3px solid #222; border-right: 3px solid #222;
-  opacity: 0; transform: translateX(8px); transition: all .18s;
-  white-space: nowrap; pointer-events: none; text-shadow: 1px 1px 0 #000;
-}
-.mc-side-item:hover .mc-side-label { opacity: 1; transform: none; }
-.mc-side-dot {
-  width: 20px; height: 20px; flex-shrink: 0;
-  background: rgba(255,248,231,.3); border: 2px solid rgba(255,248,231,.5);
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  transition: all .22s;
-}
-.mc-side-item:hover .mc-side-dot { background: rgba(255,248,231,.7); transform: scale(1.25); }
-.mc-side-item.active .mc-side-dot {
-  background: var(--gold); border-color: #7a5900;
-  transform: scale(1.5); box-shadow: 0 0 14px rgba(255,216,61,.9);
-}
+      .mc-modal-info {
+        width: 100%;
+      }
+    }
 
-/* ===== ABOUT SECTION ===== */
-.mc-about-section { padding: 5rem 0 4rem; min-height: 100vh; }
-.mc-about-inner { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
-.mc-about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
-.mc-about-block {
-  background: #8b8b8b;
-  border-top: 4px solid #c8c8c8; border-left: 4px solid #c8c8c8;
-  border-bottom: 4px solid #373737; border-right: 4px solid #373737;
-  padding: 1.25rem;
-}
-.mc-about-block-title {
-  font-family: 'DotGothic16', monospace;
-  font-size: 1rem;
-  color: var(--gold); text-shadow: 2px 2px 0 #7a5900;
-  margin-bottom: .85rem; letter-spacing: .05em;
-}
-.mc-about-block-text { font-size: .9rem; color: #1a1a1a; line-height: 2; }
-.mc-about-stats { display: flex; gap: 1.5rem; margin-top: 1rem; }
-.mc-about-stat-num {
-  font-family: 'Press Start 2P', monospace; font-size: 1.5rem;
-  color: var(--gold); text-shadow: 3px 3px 0 #7a5900; display: block;
-}
-.mc-about-stat-label { font-size: .75rem; color: #333; display: block; margin-top: .25rem; }
-.mc-about-wide {
-  grid-column: 1 / -1;
-  background: #6b6b6b;
-  border-top: 4px solid #aaa; border-left: 4px solid #aaa;
-  border-bottom: 4px solid #222; border-right: 4px solid #222;
-  padding: 1.25rem;
-}
-@media(max-width:640px){ .mc-about-grid{ grid-template-columns:1fr; } }
+    /* ===== STICKY HEADER ===== */
+    .mc-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 60;
+      background: rgba(20, 20, 20, .94);
+      backdrop-filter: blur(8px);
+      border-bottom: 3px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .5rem 1.25rem;
+      transform: translateY(-110%);
+      transition: transform .35s cubic-bezier(.22, 1, .36, 1), opacity .35s;
+      box-shadow: 0 4px 0 rgba(0, 0, 0, .5);
+    }
 
-/* ===== CONTACT SECTION ===== */
-.mc-contact-section { padding: 4rem 0 5rem; min-height: 100vh; }
-.mc-contact-inner { max-width: 760px; margin: 0 auto; padding: 0 1.5rem; }
-.mc-contact-box {
-  background: #8b8b8b;
-  border-top: 4px solid #c8c8c8; border-left: 4px solid #c8c8c8;
-  border-bottom: 4px solid #373737; border-right: 4px solid #373737;
-  padding: 1.25rem; margin-bottom: 1rem;
-}
-.mc-contact-box-title {
-  font-family: 'DotGothic16', monospace;
-  font-size: 1rem;
-  color: #1a1a1a; text-shadow: 1px 1px 0 rgba(255,255,255,.3);
-  margin-bottom: .75rem;
-}
-.mc-contact-box-text { font-size: .9rem; color: #2a2a2a; line-height: 2; margin-bottom: 1rem; }
-.mc-contact-links { display: flex; gap: .6rem; flex-wrap: wrap; }
-.mc-contact-link {
-  font-family: 'Press Start 2P', monospace; font-size: .6rem;
-  padding: .55rem 1rem; border: none; cursor: pointer;
-  border-bottom: 4px solid; border-right: 4px solid;
-  border-top: 2px solid rgba(255,255,255,.2); border-left: 2px solid rgba(255,255,255,.2);
-  color: #fff; text-shadow: 1px 1px 0 #000; text-decoration: none;
-  display: inline-block; transition: filter .1s;
-}
-.mc-contact-link:hover { filter: brightness(1.3); }
-.mc-contact-link-x    { background: #2e3a4e; border-color: #111c2e #111c2e #111c2e #111c2e; }
-.mc-contact-link-yt   { background: #c43d2e; border-color: #7a1e12 #7a1e12 #7a1e12 #7a1e12; }
-.mc-contact-link-mail {
-  background: #2a7a4e; border-color: #0f4228 #0f4228 #0f4228 #0f4228;
-  min-width: 14em; /* コピー後のテキスト変化でレイアウトが崩れないよう固定 */
-  text-align: center;
-}
-/* メールアドレス表示行 */
-.mc-contact-mail-row {
-  display: flex; align-items: center; gap: .6rem;
-  background: #222; border: 2px solid #555;
-  border-bottom: 3px solid #000; border-right: 3px solid #000;
-  padding: .6rem .9rem; margin-bottom: .8rem;
-}
-.mc-contact-mail-label { font-size: 1rem; }
-.mc-contact-mail-addr {
-  font-family: 'DotGothic16', monospace; font-size: .95rem;
-  color: var(--gold); text-shadow: 1px 1px 0 #000;
-  letter-spacing: .04em; user-select: all;
-}
-/* コピー成功トースト */
-#copyToast {
-  position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
-  background: #2a7a4e; color: #fff; font-family: 'DotGothic16', monospace;
-  padding: .65rem 1.4rem; border: 2px solid #0f4228;
-  border-bottom: 3px solid #000; border-right: 3px solid #000;
-  font-size: .9rem; z-index: 900;
-  opacity: 0; transition: opacity .2s, transform .2s;
-  pointer-events: none; white-space: nowrap;
-}
-#copyToast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .mc-header.visible {
+      transform: none;
+    }
 
-/* ===== SP BOTTOM NAV ===== */
-.mc-sp-bottom-nav {
-  display: none;
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 53;
-  height: 72px; align-items: center; justify-content: space-around;
-  padding: 0 .25rem;
-}
-@media(max-width:768px){
-  .mc-sp-bottom-nav { display: flex; }
-  #app { padding-bottom: 72px; }
-}
-.mc-sp-btn {
-  font-family: 'DotGothic16', monospace; font-size: .75rem;
-  color: rgba(255,248,231,.7); background: transparent; border: none;
-  cursor: pointer; text-shadow: 1px 1px 0 #000;
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  flex: 1; padding: .3rem .25rem;
-  transition: color .15s;
-}
-.mc-sp-btn:hover, .mc-sp-btn.active { color: var(--gold); }
-.mc-sp-btn .material-symbols-rounded {
-  font-size: 26px;
-  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
-  transition: font-variation-settings .15s;
-  line-height: 1;
-}
-.mc-sp-btn.active .material-symbols-rounded,
-.mc-sp-btn:hover .material-symbols-rounded {
-  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
-.sp-label {
-  font-family: 'DotGothic16', monospace;
-  font-size: .68rem;
-  letter-spacing: .04em;
-}
+    @media(max-width:768px) {
 
-/* app padding for sticky header */
-#app { padding-top: 0; }
-</style>
+      /* SPでは初期非表示、特定クラスで出現 */
+      .mc-header {
+        display: flex;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .mc-header.sp-active {
+        opacity: 1;
+        transform: none;
+        pointer-events: all;
+      }
+    }
+
+    .mc-header-logo {
+      cursor: pointer;
+      border: none;
+      background: none;
+      display: flex;
+      align-items: center;
+      transition: filter .1s, transform .2s;
+    }
+
+    .mc-header-logo:hover {
+      filter: brightness(1.2);
+      transform: scale(1.05);
+    }
+
+    .mc-logo-img {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .mc-header-nav {
+      display: flex;
+      gap: .4rem;
+      flex-wrap: wrap;
+    }
+
+    .mc-nav-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: .6rem;
+      color: var(--text);
+      background: var(--stone-dark);
+      border: none;
+      border-bottom: 3px solid #222;
+      border-right: 3px solid #222;
+      border-top: 2px solid rgba(255, 255, 255, .15);
+      border-left: 2px solid rgba(255, 255, 255, .15);
+      padding: .4rem .75rem;
+      cursor: pointer;
+      text-shadow: 1px 1px 0 #000;
+      transition: filter .15s, background .15s;
+    }
+
+    .mc-nav-btn:hover {
+      filter: brightness(1.4);
+    }
+
+    .mc-nav-btn.active {
+      background: var(--gold);
+      color: #000;
+      text-shadow: none;
+      border-color: #7a5900 #3a2a00 #3a2a00 #7a5900;
+    }
+
+    /* ===== SIDE NAV ===== */
+    .mc-side-nav {
+      position: fixed;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 55;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      align-items: flex-end;
+    }
+
+    @media(max-width:768px) {
+      .mc-side-nav {
+        display: none;
+      }
+    }
+
+    .mc-side-item {
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      justify-content: flex-end;
+    }
+
+    .mc-side-label {
+      font-family: 'Press Start 2P', monospace;
+      font-size: .55rem;
+      color: var(--text);
+      background: rgba(0, 0, 0, .88);
+      padding: .35rem .75rem;
+      border: 2px solid #555;
+      border-bottom: 3px solid #222;
+      border-right: 3px solid #222;
+      opacity: 0;
+      transform: translateX(8px);
+      transition: all .18s;
+      white-space: nowrap;
+      pointer-events: none;
+      text-shadow: 1px 1px 0 #000;
+    }
+
+    .mc-side-item:hover .mc-side-label {
+      opacity: 1;
+      transform: none;
+    }
+
+    .mc-side-dot {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      background: rgba(255, 248, 231, .3);
+      border: 2px solid rgba(255, 248, 231, .5);
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      transition: all .22s;
+    }
+
+    .mc-side-item:hover .mc-side-dot {
+      background: rgba(255, 248, 231, .7);
+      transform: scale(1.25);
+    }
+
+    .mc-side-item.active .mc-side-dot {
+      background: var(--gold);
+      border-color: #7a5900;
+      transform: scale(1.5);
+      box-shadow: 0 0 14px rgba(255, 216, 61, .9);
+    }
+
+    /* ===== ABOUT SECTION ===== */
+    .mc-about-section {
+      padding: 5rem 0 4rem;
+      min-height: 100vh;
+    }
+
+    .mc-about-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .mc-about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .mc-about-block {
+      background: #8b8b8b;
+      border-top: 4px solid #c8c8c8;
+      border-left: 4px solid #c8c8c8;
+      border-bottom: 4px solid #373737;
+      border-right: 4px solid #373737;
+      padding: 1.25rem;
+    }
+
+    .mc-about-block-title {
+      font-family: 'DotGothic16', monospace;
+      font-size: 1rem;
+      color: var(--gold);
+      text-shadow: 2px 2px 0 #7a5900;
+      margin-bottom: .85rem;
+      letter-spacing: .05em;
+    }
+
+    .mc-about-block-text {
+      font-size: .9rem;
+      color: #1a1a1a;
+      line-height: 2;
+    }
+
+    .mc-about-stats {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .mc-about-stat-num {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.5rem;
+      color: var(--gold);
+      text-shadow: 3px 3px 0 #7a5900;
+      display: block;
+    }
+
+    .mc-about-stat-label {
+      font-size: .75rem;
+      color: #333;
+      display: block;
+      margin-top: .25rem;
+    }
+
+    .mc-about-wide {
+      grid-column: 1 / -1;
+      background: #6b6b6b;
+      border-top: 4px solid #aaa;
+      border-left: 4px solid #aaa;
+      border-bottom: 4px solid #222;
+      border-right: 4px solid #222;
+      padding: 1.25rem;
+    }
+
+    @media(max-width:640px) {
+      .mc-about-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== CONTACT SECTION ===== */
+    .mc-contact-section {
+      padding: 4rem 0 5rem;
+      min-height: 100vh;
+    }
+
+    .mc-contact-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .mc-contact-box {
+      background: #8b8b8b;
+      border-top: 4px solid #c8c8c8;
+      border-left: 4px solid #c8c8c8;
+      border-bottom: 4px solid #373737;
+      border-right: 4px solid #373737;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .mc-contact-box-title {
+      font-family: 'DotGothic16', monospace;
+      font-size: 1rem;
+      color: #1a1a1a;
+      text-shadow: 1px 1px 0 rgba(255, 255, 255, .3);
+      margin-bottom: .75rem;
+    }
+
+    .mc-contact-box-text {
+      font-size: .9rem;
+      color: #2a2a2a;
+      line-height: 2;
+      margin-bottom: 1rem;
+    }
+
+    .mc-contact-links {
+      display: flex;
+      gap: .6rem;
+      flex-wrap: wrap;
+    }
+
+    .mc-contact-link {
+      font-family: 'Press Start 2P', monospace;
+      font-size: .6rem;
+      padding: .55rem 1rem;
+      border: none;
+      cursor: pointer;
+      border-bottom: 4px solid;
+      border-right: 4px solid;
+      border-top: 2px solid rgba(255, 255, 255, .2);
+      border-left: 2px solid rgba(255, 255, 255, .2);
+      color: #fff;
+      text-shadow: 1px 1px 0 #000;
+      text-decoration: none;
+      display: inline-block;
+      transition: filter .1s;
+    }
+
+    .mc-contact-link:hover {
+      filter: brightness(1.3);
+    }
+
+    .mc-contact-link-x {
+      background: #2e3a4e;
+      border-color: #111c2e #111c2e #111c2e #111c2e;
+    }
+
+    .mc-contact-link-yt {
+      background: #c43d2e;
+      border-color: #7a1e12 #7a1e12 #7a1e12 #7a1e12;
+    }
+
+    .mc-contact-link-mail {
+      background: #2a7a4e;
+      border-color: #0f4228 #0f4228 #0f4228 #0f4228;
+      min-width: 14em;
+      /* コピー後のテキスト変化でレイアウトが崩れないよう固定 */
+      text-align: center;
+    }
+
+    /* メールアドレス表示行 */
+    .mc-contact-mail-row {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      background: #222;
+      border: 2px solid #555;
+      border-bottom: 3px solid #000;
+      border-right: 3px solid #000;
+      padding: .6rem .9rem;
+      margin-bottom: .8rem;
+    }
+
+    .mc-contact-mail-label {
+      font-size: 1rem;
+    }
+
+    .mc-contact-mail-addr {
+      font-family: 'DotGothic16', monospace;
+      font-size: .95rem;
+      color: var(--gold);
+      text-shadow: 1px 1px 0 #000;
+      letter-spacing: .04em;
+      user-select: all;
+    }
+
+    /* コピー成功トースト */
+    #copyToast {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #2a7a4e;
+      color: #fff;
+      font-family: 'DotGothic16', monospace;
+      padding: .65rem 1.4rem;
+      border: 2px solid #0f4228;
+      border-bottom: 3px solid #000;
+      border-right: 3px solid #000;
+      font-size: .9rem;
+      z-index: 900;
+      opacity: 0;
+      transition: opacity .2s, transform .2s;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    #copyToast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ===== SP BOTTOM NAV ===== */
+    .mc-sp-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 53;
+      height: 72px;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 .25rem;
+    }
+
+    @media(max-width:768px) {
+      .mc-sp-bottom-nav {
+        display: flex;
+      }
+
+      #app {
+        padding-bottom: 72px;
+      }
+    }
+
+    .mc-sp-btn {
+      font-family: 'DotGothic16', monospace;
+      font-size: .75rem;
+      color: rgba(255, 248, 231, .7);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-shadow: 1px 1px 0 #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      flex: 1;
+      padding: .3rem .25rem;
+      transition: color .15s;
+    }
+
+    .mc-sp-btn:hover,
+    .mc-sp-btn.active {
+      color: var(--gold);
+    }
+
+    .mc-sp-btn .material-symbols-rounded {
+      font-size: 26px;
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      transition: font-variation-settings .15s;
+      line-height: 1;
+    }
+
+    .mc-sp-btn.active .material-symbols-rounded,
+    .mc-sp-btn:hover .material-symbols-rounded {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .sp-label {
+      font-family: 'DotGothic16', monospace;
+      font-size: .68rem;
+      letter-spacing: .04em;
+    }
+
+    /* app padding for sticky header */
+    #app {
+      padding-top: 0;
+    }
+  </style>
 </head>
+
 <body>
-<canvas id="particleCanvas"></canvas>
-<!-- コピー成功トースト -->
-<div id="copyToast">✔ メールアドレスをコピーしました！</div>
-<!-- 夜空の星 -->
-<div class="night-sky" id="nightSky"></div>
-<div class="ground-strip"></div>
+  <canvas id="particleCanvas"></canvas>
+  <!-- コピー成功トースト -->
+  <div id="copyToast">✔ メールアドレスをコピーしました！</div>
+  <!-- 夜空の星 -->
+  <div class="night-sky" id="nightSky"></div>
+  <div class="ground-strip"></div>
 
-<!-- ===== STICKY HEADER ===== -->
-<header class="mc-header" id="mcHeader">
-  <button class="mc-header-logo" onclick="goTo('hero')">⛏ おかき鯖</button>
-  <nav class="mc-header-nav">
-    <button class="mc-nav-btn" data-sec="hero"      onclick="goTo('hero')">HOME</button>
-    <button class="mc-nav-btn" data-sec="about"     onclick="goTo('about')">ABOUT</button>
-    <button class="mc-nav-btn" data-sec="memberSec" onclick="goTo('memberSec')">MEMBERS</button>
-    <button class="mc-nav-btn" data-sec="contact"   onclick="goTo('contact')">CONTACT</button>
-  </nav>
-</header>
+  <!-- ===== STICKY HEADER ===== -->
+  <header class="mc-header" id="mcHeader">
+    <button class="mc-header-logo" onclick="goTo('hero')">
+      <img src="img/logo.png" alt="おかき鯖" class="mc-logo-img">
+    </button>
+    <nav class="mc-header-nav">
+      <button class="mc-nav-btn" data-sec="hero" onclick="goTo('hero')">HOME</button>
+      <button class="mc-nav-btn" data-sec="about" onclick="goTo('about')">ABOUT</button>
+      <button class="mc-nav-btn" data-sec="memberSec" onclick="goTo('memberSec')">MEMBERS</button>
+      <button class="mc-nav-btn" data-sec="contact" onclick="goTo('contact')">CONTACT</button>
+    </nav>
+  </header>
 
-<!-- ===== SIDE NAV ===== -->
-<nav class="mc-side-nav" id="mcSideNav">
-  <div class="mc-side-item" data-sec="hero"      onclick="goTo('hero')">
-    <span class="mc-side-label">HOME</span><span class="mc-side-dot"></span>
-  </div>
-  <div class="mc-side-item" data-sec="about"     onclick="goTo('about')">
-    <span class="mc-side-label">ABOUT</span><span class="mc-side-dot"></span>
-  </div>
-  <div class="mc-side-item" data-sec="memberSec" onclick="goTo('memberSec')">
-    <span class="mc-side-label">MEMBERS</span><span class="mc-side-dot"></span>
-  </div>
-  <div class="mc-side-item" data-sec="contact"   onclick="goTo('contact')">
-    <span class="mc-side-label">CONTACT</span><span class="mc-side-dot"></span>
-  </div>
-</nav>
-
-<!-- ===== SP BOTTOM NAV ===== -->
-<nav class="mc-sp-bottom-nav" id="mcSpNav">
-  <button class="mc-sp-btn" data-sec="hero"      onclick="goTo('hero')"><span class="material-symbols-rounded">home</span><span class="sp-label">HOME</span></button>
-  <button class="mc-sp-btn" data-sec="about"     onclick="goTo('about')"><span class="material-symbols-rounded">info</span><span class="sp-label">ABOUT</span></button>
-  <button class="mc-sp-btn" data-sec="memberSec" onclick="goTo('memberSec')"><span class="material-symbols-rounded">group</span><span class="sp-label">MEMBERS</span></button>
-  <button class="mc-sp-btn" data-sec="contact"   onclick="goTo('contact')"><span class="material-symbols-rounded">mail</span><span class="sp-label">CONTACT</span></button>
-</nav>
-
-<div id="app">
-  <!-- TITLE SCREEN -->
-  <section class="title-screen" id="hero">
-    <div class="mc-logo-wrap">
-      <div class="mc-logo">
-        <span class="highlight">おかき鯖</span>
-        メンバー紹介
-      </div>
+  <!-- ===== SIDE NAV ===== -->
+  <nav class="mc-side-nav" id="mcSideNav">
+    <div class="mc-side-item" data-sec="hero" onclick="goTo('hero')">
+      <span class="mc-side-label">HOME</span><span class="mc-side-dot"></span>
     </div>
+    <div class="mc-side-item" data-sec="about" onclick="goTo('about')">
+      <span class="mc-side-label">ABOUT</span><span class="mc-side-dot"></span>
+    </div>
+    <div class="mc-side-item" data-sec="memberSec" onclick="goTo('memberSec')">
+      <span class="mc-side-label">MEMBERS</span><span class="mc-side-dot"></span>
+    </div>
+    <div class="mc-side-item" data-sec="contact" onclick="goTo('contact')">
+      <span class="mc-side-label">CONTACT</span><span class="mc-side-dot"></span>
+    </div>
+  </nav>
 
-    <button class="mc-btn" onclick="document.getElementById('memberSec').scrollIntoView({behavior:'smooth'})">メンバーリストを見る</button>
-    <div class="mc-version">Made with ❤ by おかき鯖</div>
-  </section>
+  <!-- ===== SP BOTTOM NAV ===== -->
+  <nav class="mc-sp-bottom-nav" id="mcSpNav">
+    <button class="mc-sp-btn" data-sec="hero" onclick="goTo('hero')"><span
+        class="material-symbols-rounded">home</span><span class="sp-label">HOME</span></button>
+    <button class="mc-sp-btn" data-sec="about" onclick="goTo('about')"><span
+        class="material-symbols-rounded">info</span><span class="sp-label">ABOUT</span></button>
+    <button class="mc-sp-btn" data-sec="memberSec" onclick="goTo('memberSec')"><span
+        class="material-symbols-rounded">group</span><span class="sp-label">MEMBERS</span></button>
+    <button class="mc-sp-btn" data-sec="contact" onclick="goTo('contact')"><span
+        class="material-symbols-rounded">mail</span><span class="sp-label">CONTACT</span></button>
+  </nav>
 
-  <!-- ===== ABOUT SECTION ===== -->
-  <section class="mc-about-section" id="about">
-    <div class="mc-about-inner">
-      <div class="mc-section-title">[ ABOUT おかき鯖 ]</div>
-      <div class="mc-about-grid">
-        <div class="mc-about-block">
-          <div class="mc-about-block-title">🌐 おかき鯖とは？</div>
-          <div class="mc-about-block-text">
-            kaki、たけぉが運営する配信者グループ。<br>
-            ただ遊ぶだけではなく、本気で活動する配信者・クリエイターが集まり、切磋琢磨しながら共に歩んでいくコミュニティです。
+  <div id="app">
+    <!-- TITLE SCREEN -->
+    <section class="title-screen" id="hero">
+      <div class="mc-logo-wrap">
+        <div class="mc-logo">
+          <span class="highlight">おかき鯖</span>
+          メンバー紹介
+        </div>
+      </div>
+
+      <button class="mc-btn"
+        onclick="document.getElementById('memberSec').scrollIntoView({behavior:'smooth'})">メンバーリストを見る</button>
+      <div class="mc-version">Made with ❤ by おかき鯖</div>
+    </section>
+
+    <!-- ===== ABOUT SECTION ===== -->
+    <section class="mc-about-section" id="about">
+      <div class="mc-about-inner">
+        <div class="mc-section-title">[ ABOUT おかき鯖 ]</div>
+        <div class="mc-about-grid">
+          <div class="mc-about-block">
+            <div class="mc-about-block-title">🌐 おかき鯖とは？</div>
+            <div class="mc-about-block-text">
+              kaki、たけぉが運営する配信者グループ。<br>
+              ただ遊ぶだけではなく、本気で活動する配信者・クリエイターが集まり、切磋琢磨しながら共に歩んでいくコミュニティです。
+            </div>
+            <div class="mc-about-stats" style="align-items: center;">
+              <div><span class="mc-about-stat-num" id="mcMemberCount">31</span><span
+                  class="mc-about-stat-label">MEMBERS</span></div>
+              <div style="margin-left: auto;">
+                <a href="https://www.youtube.com/hashtag/%E3%81%8A%E3%81%8B%E3%81%8D%E9%AF%96" target="_blank"
+                  rel="noopener" class="mc-contact-link mc-contact-link-yt"
+                  style="font-size: 0.6rem; padding: 0.4rem 0.8rem; display: inline-block;">▶ YouTubeで #おかき鯖 を観る</a>
+              </div>
+            </div>
           </div>
-          <div class="mc-about-stats" style="align-items: center;">
-            <div><span class="mc-about-stat-num" id="mcMemberCount">31</span><span class="mc-about-stat-label">MEMBERS</span></div>
-            <div style="margin-left: auto;">
-              <a href="https://www.youtube.com/hashtag/%E3%81%8A%E3%81%8B%E3%81%8D%E9%AF%96" target="_blank" rel="noopener" class="mc-contact-link mc-contact-link-yt" style="font-size: 0.6rem; padding: 0.4rem 0.8rem; display: inline-block;">▶ YouTubeで #おかき鯖 を観る</a>
+          <div class="mc-about-block">
+            <div class="mc-about-block-title">⛏ サーバーでの活動</div>
+            <div class="mc-about-block-text">
+              ・マイクラ等のゲームを通じた大規模なコラボ企画・配信<br>
+              ・メンバー同士の自発的なコラボや交流活動<br>
+              ・活動に関する機材やノウハウの共有・情報交換<br>
+              みんなでワイワイ楽しみながら、お互いに高め合う活動を日々実施しています！
+            </div>
+          </div>
+          <div class="mc-about-wide">
+            <div class="mc-about-block-title" style="color:var(--text)">📈 確かな成長と実績</div>
+            <div class="mc-about-block-text" style="color:rgba(255,248,231,.85)">
+              参加からわずか半年間で「登録者数千〜1.5万人以上の増加」「同接100人超え」「ショート動画100万回再生」を達成するメンバーが続出！<br>
+              エンタメとして視聴者と一緒に楽しみながら、それぞれが確かな成長の軌跡を残し続けています。気になったメンバーのアイコンをクリックして、ぜひチャンネルを覗いてみてください！
+            </div>
+          </div>
+          <div class="mc-about-wide" style="background:#5a5a5a;">
+            <div class="mc-about-block-title" style="color:var(--text)">📜 メンバー募集の歩み</div>
+            <div class="mc-about-block-text" style="color:rgba(255,248,231,.85)">
+              <ul style="list-style:none; line-height:2; padding-left:0.5rem; border-left: 2px solid var(--gold);">
+                <li style="padding-left:0.5rem;"><strong>[ 第1回募集 ]</strong> 2025年8月18日〜8月25日</li>
+                <li style="padding-left:0.5rem;"><strong>[ 第2回募集 ]</strong> 2025年12月26日〜2026年1月4日</li>
+                <li style="padding-left:0.5rem;"><strong>[ 第3回募集 ]</strong> 2026年3月19日〜3月26日</li>
+              </ul>
             </div>
           </div>
         </div>
-        <div class="mc-about-block">
-          <div class="mc-about-block-title">⛏ サーバーでの活動</div>
-          <div class="mc-about-block-text">
-            ・マイクラ等のゲームを通じた大規模なコラボ企画・配信<br>
-            ・メンバー同士の自発的なコラボや交流活動<br>
-            ・活動に関する機材やノウハウの共有・情報交換<br>
-            みんなでワイワイ楽しみながら、お互いに高め合う活動を日々実施しています！
+      </div>
+    </section>
+
+    <!-- MEMBER SECTION -->
+    <section class="member-section" id="memberSec">
+      <div class="mc-section-title">[ MEMBER LIST ]</div>
+      <div class="inv-grid" id="mainInv"></div>
+      <br><br>
+      <div class="mc-section-title">[ STAFF ]</div>
+      <div class="inv-grid inv-grid--center" id="staffInv"></div>
+    </section>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section class="mc-contact-section" id="contact">
+      <div class="mc-contact-inner">
+        <div class="mc-section-title">[ CONTACT ]</div>
+        <div class="mc-contact-box">
+          <div class="mc-contact-box-title">🎮 視聴者の方へ（メンバーへの応援）</div>
+          <div class="mc-contact-box-text">
+            各メンバーへの応援・ファンレターは、MEMBERS セクションよりご本人の各SNSへ直接お願いいたします！<br>
+            ハッシュタグ <a href="https://x.com/search?q=%23%E3%81%8A%E3%81%8B%E3%81%8D%E9%AF%96&src=typed_query"
+              target="_blank" rel="noopener"
+              style="color:var(--diamond); text-decoration:none; font-weight:bold;">#おかき鯖</a> を付けての感想コメントや応援も大歓迎です。<br>
+            チャンネル登録・高評価・温かいコメントが何よりの応援になります。
+          </div>
+          <div class="mc-contact-links">
+            <button class="mc-contact-link mc-contact-link-x" onclick="goTo('memberSec')">⛏ MEMBERS を見る</button>
           </div>
         </div>
-        <div class="mc-about-wide">
-          <div class="mc-about-block-title" style="color:var(--text)">📈 確かな成長と実績</div>
-          <div class="mc-about-block-text" style="color:rgba(255,248,231,.85)">
-            参加からわずか半年間で「登録者数千〜1.5万人以上の増加」「同接100人超え」「ショート動画100万回再生」を達成するメンバーが続出！<br>
-            エンタメとして視聴者と一緒に楽しみながら、それぞれが確かな成長の軌跡を残し続けています。気になったメンバーのアイコンをクリックして、ぜひチャンネルを覗いてみてください！
+
+        <div class="mc-contact-box">
+          <div class="mc-contact-box-title">💬 総合・コラボのお問い合わせ</div>
+          <div class="mc-contact-box-text">
+            おかき鯖全体に関するご質問・コラボのご依頼などは、
+            下記のメールアドレスまたは代表(kaki)のXのDMよりお気軽にお問い合わせください。<br>
+            <small style="opacity:0.7; font-size:0.8em;">※メンバー個人に関するお問い合わせ・ご相談は、各メンバーのSNSへ直接ご連絡ください。</small>
+          </div>
+          <div class="mc-contact-mail-row">
+            <span class="mc-contact-mail-label">✉</span>
+            <code class="mc-contact-mail-addr" id="contactMailDisplay"></code>
+          </div>
+          <div class="mc-contact-links">
+            <a class="mc-contact-link mc-contact-link-x" href="https://x.com/kakisan116" target="_blank"
+              rel="noopener">𝕏 Twitter (kaki)</a>
+            <a class="mc-contact-link mc-contact-link-yt" href="https://www.youtube.com/@kakigame" target="_blank"
+              rel="noopener">▶ YouTube</a>
+            <button class="mc-contact-link mc-contact-link-mail" onclick="copyEmail(this)" id="contactCopyBtn">✉
+              メールアドレスをコピー</button>
           </div>
         </div>
-        <div class="mc-about-wide" style="background:#5a5a5a;">
-          <div class="mc-about-block-title" style="color:var(--text)">📜 メンバー募集の歩み</div>
-          <div class="mc-about-block-text" style="color:rgba(255,248,231,.85)">
-            <ul style="list-style:none; line-height:2; padding-left:0.5rem; border-left: 2px solid var(--gold);">
-              <li style="padding-left:0.5rem;"><strong>[ 第1回募集 ]</strong> 2025年8月18日〜8月25日</li>
-              <li style="padding-left:0.5rem;"><strong>[ 第2回募集 ]</strong> 2025年12月26日〜2026年1月4日</li>
-              <li style="padding-left:0.5rem;"><strong>[ 第3回募集 ]</strong> 2026年3月19日〜3月26日</li>
-            </ul>
-          </div>
-        </div>
       </div>
-    </div>
-  </section>
+    </section>
+    <footer>
+      <div class="mc-footer-copyright">© 2026 おかき鯖 (Okaki Server) All Rights Reserved.</div>
+      <div class="mc-footer-notice"
+        style="font-size: 0.6rem; color: #888; text-shadow: none; margin-top: 5px; font-family: sans-serif;">
+        ※当サイトに掲載されている各メンバーのアイコン・立ち絵等の著作権および肖像権は、各クリエイターおよびご本人に帰属します。無断転載を禁じます。
+      </div>
+    </footer>
+  </div>
 
-  <!-- MEMBER SECTION -->
-  <section class="member-section" id="memberSec">
-    <div class="mc-section-title">[ MEMBER LIST ]</div>
-    <div class="inv-grid" id="mainInv"></div>
-    <br><br>
-    <div class="mc-section-title">[ STAFF ]</div>
-    <div class="inv-grid inv-grid--center" id="staffInv"></div>
-  </section>
-
-  <!-- ===== CONTACT SECTION ===== -->
-  <section class="mc-contact-section" id="contact">
-    <div class="mc-contact-inner">
-      <div class="mc-section-title">[ CONTACT ]</div>
-      <div class="mc-contact-box">
-        <div class="mc-contact-box-title">🎮 視聴者の方へ（メンバーへの応援）</div>
-        <div class="mc-contact-box-text">
-          各メンバーへの応援・ファンレターは、MEMBERS セクションよりご本人の各SNSへ直接お願いいたします！<br>
-          ハッシュタグ <a href="https://x.com/search?q=%23%E3%81%8A%E3%81%8B%E3%81%8D%E9%AF%96&src=typed_query" target="_blank" rel="noopener" style="color:var(--diamond); text-decoration:none; font-weight:bold;">#おかき鯖</a> を付けての感想コメントや応援も大歓迎です。<br>
-          チャンネル登録・高評価・温かいコメントが何よりの応援になります。
-        </div>
-        <div class="mc-contact-links">
-          <button class="mc-contact-link mc-contact-link-x" onclick="goTo('memberSec')">⛏ MEMBERS を見る</button>
-        </div>
+  <!-- MEMBER MODAL -->
+  <div class="mc-modal-bg" id="mcModalBg">
+    <div class="mc-modal">
+      <div class="mc-modal-header">
+        <span class="mc-modal-header-title" id="mcModalTitle">Player Info</span>
+        <button class="mc-modal-close" onclick="closeMcModal()">✕</button>
       </div>
-
-      <div class="mc-contact-box">
-        <div class="mc-contact-box-title">💬 総合・コラボのお問い合わせ</div>
-        <div class="mc-contact-box-text">
-          おかき鯖全体に関するご質問・コラボのご依頼などは、
-          下記のメールアドレスまたは代表(kaki)のXのDMよりお気軽にお問い合わせください。<br>
-          <small style="opacity:0.7; font-size:0.8em;">※メンバー個人に関するお問い合わせ・ご相談は、各メンバーのSNSへ直接ご連絡ください。</small>
+      <div class="mc-modal-body">
+        <div class="mc-modal-av"><img id="mcModalAv" src="" alt=""></div>
+        <div class="mc-modal-info">
+          <div id="mcModalGenBadge"></div>
+          <div class="mc-modal-subs" id="mcModalSubs"></div>
+          <div class="mc-modal-links" id="mcModalLinks"></div>
         </div>
-        <div class="mc-contact-mail-row">
-          <span class="mc-contact-mail-label">✉</span>
-          <code class="mc-contact-mail-addr" id="contactMailDisplay"></code>
+        <div class="mc-gallery-section" id="mcGallerySection">
+          <div class="mc-gallery-label">🖼 イラスト・立ち絵ギャラリー</div>
+          <div class="mc-gallery-grid" id="mcGalleryGrid"></div>
         </div>
-        <div class="mc-contact-links">
-          <a class="mc-contact-link mc-contact-link-x"  href="https://x.com/kakisan116"        target="_blank" rel="noopener">𝕏 Twitter (kaki)</a>
-          <a class="mc-contact-link mc-contact-link-yt" href="https://www.youtube.com/@kakigame" target="_blank" rel="noopener">▶ YouTube</a>
-          <button class="mc-contact-link mc-contact-link-mail" onclick="copyEmail(this)" id="contactCopyBtn">✉ メールアドレスをコピー</button>
+        <div class="mc-vid-section" id="mcVidSection">
+          <div class="mc-vid-label">🎬 おすすめ動画</div>
+          <div id="mcVidArea"></div>
         </div>
-      </div>
-    </div>
-  </section>
-  <footer>
-    <div class="mc-footer-copyright">© 2026 おかき鯖 (Okaki Server) All Rights Reserved.</div>
-    <div class="mc-footer-notice" style="font-size: 0.6rem; color: #888; text-shadow: none; margin-top: 5px; font-family: sans-serif;">
-      ※当サイトに掲載されている各メンバーのアイコン・立ち絵等の著作権および肖像権は、各クリエイターおよびご本人に帰属します。無断転載を禁じます。
-    </div>
-  </footer>
-</div>
-
-<!-- MEMBER MODAL -->
-<div class="mc-modal-bg" id="mcModalBg">
-  <div class="mc-modal">
-    <div class="mc-modal-header">
-      <span class="mc-modal-header-title" id="mcModalTitle">Player Info</span>
-      <button class="mc-modal-close" onclick="closeMcModal()">✕</button>
-    </div>
-    <div class="mc-modal-body">
-      <div class="mc-modal-av"><img id="mcModalAv" src="" alt=""></div>
-      <div class="mc-modal-info">
-        <div id="mcModalGenBadge"></div>
-        <div class="mc-modal-subs" id="mcModalSubs"></div>
-        <div class="mc-modal-links" id="mcModalLinks"></div>
-      </div>
-      <div class="mc-gallery-section" id="mcGallerySection">
-        <div class="mc-gallery-label">🖼 イラスト・立ち絵ギャラリー</div>
-        <div class="mc-gallery-grid" id="mcGalleryGrid"></div>
-      </div>
-      <div class="mc-vid-section" id="mcVidSection">
-        <div class="mc-vid-label">🎬 おすすめ動画</div>
-        <div id="mcVidArea"></div>
       </div>
     </div>
   </div>
-</div>
 
 
-<!-- LIGHTBOX (fullscreen) -->
-<div class="mc-lb-bg" id="mcLbBg" onclick="lbBgClick(event)">
-  <div class="mc-lb-img-wrap" id="mcLbImgWrap"></div>
-  <span class="mc-lb-counter" id="mcLbCounter"></span>
-  <button class="mc-lb-close" onclick="closeLb()">✕</button>
-  <button class="mc-lb-nav" id="mcLbPrev" onclick="lbNav(-1)">&#8249;</button>
-  <button class="mc-lb-nav" id="mcLbNext" onclick="lbNav(1)">&#8250;</button>
-</div>
+  <!-- LIGHTBOX (fullscreen) -->
+  <div class="mc-lb-bg" id="mcLbBg" onclick="lbBgClick(event)">
+    <div class="mc-lb-img-wrap" id="mcLbImgWrap"></div>
+    <span class="mc-lb-counter" id="mcLbCounter"></span>
+    <button class="mc-lb-close" onclick="closeLb()">✕</button>
+    <button class="mc-lb-nav" id="mcLbPrev" onclick="lbNav(-1)">&#8249;</button>
+    <button class="mc-lb-nav" id="mcLbNext" onclick="lbNav(1)">&#8250;</button>
+  </div>
 
-<script>
-// ---- 星を生成 ----
-(function(){
-  const sky = document.getElementById('nightSky');
-  for(let i=0;i<80;i++){
-    const s = document.createElement('div');
-    s.className = 'star-px';
-    s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*80}%;--td:${(Math.random()*4+1).toFixed(1)}s;--op:${(Math.random()*.7+.3).toFixed(2)};animation-delay:${(Math.random()*4).toFixed(1)}s`;
-    sky.appendChild(s);
-  }
-})();
+  <script>
+    // ---- 星を生成 ----
+    (function () {
+      const sky = document.getElementById('nightSky');
+      for (let i = 0; i < 80; i++) {
+        const s = document.createElement('div');
+        s.className = 'star-px';
+        s.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 80}%;--td:${(Math.random() * 4 + 1).toFixed(1)}s;--op:${(Math.random() * .7 + .3).toFixed(2)};animation-delay:${(Math.random() * 4).toFixed(1)}s`;
+        sky.appendChild(s);
+      }
+    })();
 
-// ---- DATA (members.jsonから動的ロード) ----
-const PALETTE = ['#5d9c29','#2e7d32','#0077b6','#c43d2e','#7b2d8b','#e65100','#1565c0','#00695c','#558b2f','#ad1457'];
-// ギャラリーマニフェスト（manifest.jsonから取得）
-let galleryManifest = {};
+    // ---- DATA (members.jsonから動的ロード) ----
+    const PALETTE = ['#5d9c29', '#2e7d32', '#0077b6', '#c43d2e', '#7b2d8b', '#e65100', '#1565c0', '#00695c', '#558b2f', '#ad1457'];
+    // ギャラリーマニフェスト（manifest.jsonから取得）
+    let galleryManifest = {};
 
-function buildInv(arr, container) {
-  arr.forEach((m, i) => {
-    const color = PALETTE[i % PALETTE.length];
-    const fallbackUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
-      `<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect width='64' height='64' fill='${color}'/><text x='32' y='32' dominant-baseline='central' text-anchor='middle' font-size='28' font-family='sans-serif' fill='rgba(255,255,255,.9)'>${m.name[0]}</text></svg>`
-    );
-    const el = document.createElement('div');
-    el.className = 'inv-slot';
-    el.innerHTML = `<div class="slot-av"><img src="${m.icon}" alt="${m.name}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackUrl}'"></div><div class="slot-name">${m.name}</div>`;
-    el.addEventListener('click', () => openMcModal(m, color));
-    container.appendChild(el);
-  });
-}
-
-// Scroll reveal container
-const ioInv = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const slots = e.target.querySelectorAll('.inv-slot');
-      slots.forEach((el, i) => {
-        // 先頭から順に30ms間隔でパラパラと表示
-        setTimeout(() => el.classList.add('vis'), i * 30);
+    function buildInv(arr, container) {
+      arr.forEach((m, i) => {
+        const color = PALETTE[i % PALETTE.length];
+        const fallbackUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
+          `<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect width='64' height='64' fill='${color}'/><text x='32' y='32' dominant-baseline='central' text-anchor='middle' font-size='28' font-family='sans-serif' fill='rgba(255,255,255,.9)'>${m.name[0]}</text></svg>`
+        );
+        const el = document.createElement('div');
+        el.className = 'inv-slot';
+        el.innerHTML = `<div class="slot-av"><img src="${m.icon}" alt="${m.name}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackUrl}'"></div><div class="slot-name">${m.name}</div>`;
+        el.addEventListener('click', () => openMcModal(m, color));
+        container.appendChild(el);
       });
-      ioInv.unobserve(e.target);
     }
-  });
-}, {threshold: 0.1});
 
-// MC Modal
-function openMcModal(m, color) {
-  document.getElementById('mcModalTitle').textContent = m.name;
-  const avEl = document.getElementById('mcModalAv');
-  avEl.src = m.icon;
-  avEl.alt = m.name;
-  const fallbackSvg = `<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><rect width='120' height='120' fill='${color}'/><text x='60' y='60' dominant-baseline='central' text-anchor='middle' font-size='52' font-family='sans-serif' fill='rgba(255,255,255,.9)'>${m.name[0]}</text></svg>`;
-  avEl.onerror = () => { avEl.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(fallbackSvg); avEl.onerror = null; };
-  // 期バッジ（運営はnullなのでバッジなし）
-  const gen = m.generation;
-  const genBadgeEl = document.getElementById('mcModalGenBadge');
-  if (gen) {
-    const genLabels = { 1: '1期メンバー', 2: '2期メンバー', 3: '3期メンバー' };
-    genBadgeEl.innerHTML = `<span class="gen-badge gen-${gen}">${genLabels[gen] || `${gen}期メンバー`}</span>`;
-  } else {
-    genBadgeEl.innerHTML = '';
-  }
-  const subsEl = document.getElementById('mcModalSubs');
-  if (m.subscribers != null) {
-    subsEl.innerHTML = `<span class="mc-stat-dot"></span> <span style="opacity:0.8; font-size:0.85rem;">登録者数</span> <span class="subs-num">${m.subscribers.toLocaleString()}</span> <span style="font-size:0.8rem; opacity:0.7;">人</span>`;
-  } else {
-    subsEl.innerHTML = '';
-  }
-  // 複数SNSリンク対応
-  const linksWrap = document.getElementById('mcModalLinks');
-  linksWrap.innerHTML = '';
-  const addLink = (urls, baseLabel, cls) => {
-    if (!urls) return;
-    const arr = Array.isArray(urls) ? urls : [urls];
-    arr.forEach((u, i) => {
-      const a = document.createElement('a');
-      a.className = `mc-link ${cls}`;
-      a.target = '_blank';
-      a.rel = 'noopener';
-      a.href = typeof u === 'string' ? u : u.url;
-      const subLabel = typeof u === 'object' && u.label ? ` ${u.label}` : (i > 0 ? `(サブ)` : '');
-      a.textContent = `${baseLabel} ${subLabel}`.trim();
-      linksWrap.appendChild(a);
-    });
-  };
-  addLink(m.yt, '▶ YouTube', 'mc-link-yt');
-  addLink(m.x, '𝕏 Twitter', 'mc-link-x');
+    // Scroll reveal container
+    const ioInv = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const slots = e.target.querySelectorAll('.inv-slot');
+          slots.forEach((el, i) => {
+            // 先頭から順に30ms間隔でパラパラと表示
+            setTimeout(() => el.classList.add('vis'), i * 30);
+          });
+          ioInv.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
 
-  // おすすめ動画: rec がある場合のみ表示
-  const vidSection = document.getElementById('mcVidSection');
-  const vidArea    = document.getElementById('mcVidArea');
-  if (m.rec) {
-    vidSection.style.display = '';
-    const isPlaylist = m.rec.startsWith('list:');
-    const recParts = m.rec.split(':');
-    const recId = isPlaylist ? recParts[2] : m.rec;
-    const recTitle = m.recTitle || (isPlaylist ? 'おすすめプレイリスト' : 'おすすめ動画');
-    
-    const youtubeUrl = isPlaylist 
-      ? `https://www.youtube.com/playlist?list=${recParts[1]}`
-      : `https://www.youtube.com/watch?v=${m.rec}`;
-    
-    vidArea.innerHTML = `<div class="mc-vid-thumb" onclick="window.open('${youtubeUrl}','_blank')">
+    // MC Modal
+    function openMcModal(m, color) {
+      document.getElementById('mcModalTitle').textContent = m.name;
+      const avEl = document.getElementById('mcModalAv');
+      avEl.src = m.icon;
+      avEl.alt = m.name;
+      const fallbackSvg = `<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><rect width='120' height='120' fill='${color}'/><text x='60' y='60' dominant-baseline='central' text-anchor='middle' font-size='52' font-family='sans-serif' fill='rgba(255,255,255,.9)'>${m.name[0]}</text></svg>`;
+      avEl.onerror = () => { avEl.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(fallbackSvg); avEl.onerror = null; };
+      // 期バッジ削除
+      const subsEl = document.getElementById('mcModalSubs');
+      if (m.subscribers != null) {
+        subsEl.innerHTML = `<span class="mc-stat-dot"></span> <span style="opacity:0.8; font-size:0.85rem;">登録者数</span> <span class="subs-num">${m.subscribers.toLocaleString()}</span> <span style="font-size:0.8rem; opacity:0.7;">人</span>`;
+      } else {
+        subsEl.innerHTML = '';
+      }
+      // 複数SNSリンク対応
+      const linksWrap = document.getElementById('mcModalLinks');
+      linksWrap.innerHTML = '';
+      const addLink = (urls, baseLabel, cls) => {
+        if (!urls) return;
+        const arr = Array.isArray(urls) ? urls : [urls];
+        arr.forEach((u, i) => {
+          const a = document.createElement('a');
+          a.className = `mc-link ${cls}`;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.href = typeof u === 'string' ? u : u.url;
+          const subLabel = typeof u === 'object' && u.label ? ` ${u.label}` : (i > 0 ? `(サブ)` : '');
+          a.textContent = `${baseLabel} ${subLabel}`.trim();
+          linksWrap.appendChild(a);
+        });
+      };
+      addLink(m.yt, '▶ YouTube', 'mc-link-yt');
+      addLink(m.x, '𝕏 Twitter', 'mc-link-x');
+
+      // おすすめ動画: rec がある場合のみ表示
+      const vidSection = document.getElementById('mcVidSection');
+      const vidArea = document.getElementById('mcVidArea');
+      if (m.rec) {
+        vidSection.style.display = '';
+        const isPlaylist = m.rec.startsWith('list:');
+        const recParts = m.rec.split(':');
+        const recId = isPlaylist ? recParts[2] : m.rec;
+        const recTitle = m.recTitle || (isPlaylist ? 'おすすめプレイリスト' : 'おすすめ動画');
+
+        const youtubeUrl = isPlaylist
+          ? `https://www.youtube.com/playlist?list=${recParts[1]}`
+          : `https://www.youtube.com/watch?v=${m.rec}`;
+
+        vidArea.innerHTML = `<div class="mc-vid-thumb" onclick="window.open('${youtubeUrl}','_blank')">
       <img src="https://i.ytimg.com/vi/${recId}/hqdefault.jpg" alt="動画サムネ" onerror="this.style.display='none'">
       <div class="mc-vid-overlay">
         <div class="mc-vid-play">▶</div>
         <div class="mc-vid-text" style="font-size:0.55rem; padding:0 10px;">${recTitle}</div>
       </div>
     </div>`;
-  } else {
-    vidSection.style.display = 'none';
-    vidArea.innerHTML = '';
-  }
+      } else {
+        vidSection.style.display = 'none';
+        vidArea.innerHTML = '';
+      }
 
-  // ギャラリー: manifest.json から画像一覧を取得して表示（モーダルオープン時にロード）
-  const gallerySection = document.getElementById('mcGallerySection');
-  const galleryGrid    = document.getElementById('mcGalleryGrid');
-  galleryGrid.innerHTML = '';
-  const images = (galleryManifest[m.name] || []).map((src, i) => ({ src, label: `画像 ${i+1}` }));
-  if (images.length === 0) {
-    gallerySection.style.display = 'none';
-  } else {
-    gallerySection.style.display = '';
-    const lbData = images;
-    images.forEach((img, idx) => {
-      const item = document.createElement('div');
-      item.className = 'mc-gallery-item';
-      item.title = img.label;
-      item.innerHTML = `<img src="${img.src}" alt="${img.label}" loading="eager" onerror="this.parentElement.classList.add('broken')"><span class="mc-gallery-item-num">${idx+1}</span>`;
-      item.addEventListener('click', () => openLb(lbData, idx, m.name));
-      galleryGrid.appendChild(item);
-    });
-  }
+      // ギャラリー: manifest.json から画像一覧を取得して表示（モーダルオープン時にロード）
+      const gallerySection = document.getElementById('mcGallerySection');
+      const galleryGrid = document.getElementById('mcGalleryGrid');
+      galleryGrid.innerHTML = '';
+      const images = (galleryManifest[m.name] || []).map((src, i) => ({ src, label: `画像 ${i + 1}` }));
+      if (images.length === 0) {
+        gallerySection.style.display = 'none';
+      } else {
+        gallerySection.style.display = '';
+        const lbData = images;
+        images.forEach((img, idx) => {
+          const item = document.createElement('div');
+          item.className = 'mc-gallery-item';
+          item.title = img.label;
+          item.innerHTML = `<img src="${img.src}" alt="${img.label}" loading="eager" onerror="this.parentElement.classList.add('broken')"><span class="mc-gallery-item-num">${idx + 1}</span>`;
+          item.addEventListener('click', () => openLb(lbData, idx, m.name));
+          galleryGrid.appendChild(item);
+        });
+      }
 
-  // アイコン画像のロード完了を待ってからモーダルを表示する
-  const showModal = () => document.getElementById('mcModalBg').classList.add('open');
-  if (avEl.complete) {
-    showModal();
-  } else {
-    avEl.addEventListener('load',  showModal, { once: true });
-    avEl.addEventListener('error', showModal, { once: true });
-  }
-}
-
-function closeMcModal() { document.getElementById('mcModalBg').classList.remove('open'); }
-document.getElementById('mcModalBg').addEventListener('click', e => { if (e.target === document.getElementById('mcModalBg')) closeMcModal(); });
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeMcModal(); closeLb(); }
-  if (e.key === 'ArrowLeft')  lbNav(-1);
-  if (e.key === 'ArrowRight') lbNav(1);
-});
-
-// ---- LIGHTBOX ----
-let lbImages = [], lbIndex = 0;
-function openLb(images, startIdx, memberName) {
-  lbImages = images;
-  lbIndex = startIdx;
-  document.getElementById('mcLbBg').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  renderLb();
-}
-function closeLb() {
-  document.getElementById('mcLbBg').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function lbBgClick(e) {
-  // 画像やボタン以外の背景クリックで閉じる
-  if (e.target === document.getElementById('mcLbBg') ||
-      e.target === document.getElementById('mcLbImgWrap') ||
-      e.target.tagName === 'IMG') closeLb();
-}
-function lbNav(dir) {
-  lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
-  renderLb();
-}
-function renderLb() {
-  const img = lbImages[lbIndex];
-  const wrap = document.getElementById('mcLbImgWrap');
-  if (img.src) {
-    wrap.innerHTML = `<img src="${img.src}" alt="${img.label}">`;
-  } else {
-    wrap.innerHTML = `<div class="mc-lb-ph"><span class="ph-big">🖼</span><span class="ph-txt">${img.label}<br>画像準備中<br><br>立ち絵ファイルを<br>public/members/ に配置してね</span></div>`;
-  }
-  document.getElementById('mcLbCounter').textContent = `${lbIndex + 1} / ${lbImages.length}`;
-  document.getElementById('mcLbPrev').disabled = lbImages.length <= 1;
-  document.getElementById('mcLbNext').disabled = lbImages.length <= 1;
-}
-document.getElementById('mcLbBg').addEventListener('click', e => { if (e.target === document.getElementById('mcLbBg')) closeLb(); });
-
-// members.json と manifest.json を並行ロード
-Promise.all([
-  fetch('members.json').then(r => r.json()),
-  fetch('members/manifest.json').then(r => r.json()).catch(() => ({}))
-]).then(([data, manifest]) => {
-    galleryManifest = manifest;
-    
-    // 動的に総メンバー数を更新
-    const countEl = document.getElementById('mcMemberCount');
-    if (countEl) countEl.textContent = data.length;
-
-    const memberList = data
-      .filter(d => d.id !== '運営')
-      .map((d, i) => ({
-        num: i + 1,
-        name: d.name,
-        yt: d.youtube,
-        x: d.x,
-        icon: d.icon,
-        subscribers: d.subscribers ?? null,
-        rec: d.rec ?? null,
-        recTitle: d.recTitle ?? null,
-        generation: d.generation ?? 1
-      }));
-    const staffList = data
-      .filter(d => d.id === '運営')
-      .map((d, i) => ({
-        num: i + 1,
-        name: d.name,
-        yt: d.youtube,
-        x: d.x,
-        icon: d.icon,
-        subscribers: d.subscribers ?? null,
-        rec: d.rec ?? null,
-        recTitle: d.recTitle ?? null,
-        generation: null  // 運営はバッジなし
-      }));
-    buildInv(memberList, document.getElementById('mainInv'));
-    buildInv(staffList,   document.getElementById('staffInv'));
-    ioInv.observe(document.getElementById('mainInv'));
-    ioInv.observe(document.getElementById('staffInv'));
-  })
-  .catch(err => console.error('データロード失敗:', err));
-
-// ===== SECTION NAV =====
-const SECTIONS = ['hero','about','memberSec','contact'];
-// スムーズスクロール（クロスブラウザ対応）
-function smoothScrollTo(targetY, duration = 650) {
-  const startY = window.scrollY;
-  const diff   = targetY - startY;
-  let startTime = null;
-  function step(t) {
-    if (!startTime) startTime = t;
-    const p = Math.min(1, (t - startTime) / duration);
-    const ease = p < .5 ? 2*p*p : -1+(4-2*p)*p;
-    window.scrollTo(0, startY + diff * ease);
-    if (p < 1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-function goTo(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const y = el.getBoundingClientRect().top + window.scrollY;
-  smoothScrollTo(y);
-}
-
-// ヘッダーとサイドナビのスクロールスパイ
-const ioSec = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const id = e.target.id;
-    if (id !== 'hero') {
-      document.getElementById('mcHeader').classList.add('visible');
-    } else {
-      document.getElementById('mcHeader').classList.remove('visible');
+      // アイコン画像のロード完了を待ってからモーダルを表示する
+      const showModal = () => document.getElementById('mcModalBg').classList.add('open');
+      if (avEl.complete) {
+        showModal();
+      } else {
+        avEl.addEventListener('load', showModal, { once: true });
+        avEl.addEventListener('error', showModal, { once: true });
+      }
     }
-    document.querySelectorAll('[data-sec]').forEach(el => {
-      el.classList.toggle('active', el.dataset.sec === id);
+
+    function closeMcModal() { document.getElementById('mcModalBg').classList.remove('open'); }
+    document.getElementById('mcModalBg').addEventListener('click', e => { if (e.target === document.getElementById('mcModalBg')) closeMcModal(); });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeMcModal(); closeLb(); }
+      if (e.key === 'ArrowLeft') lbNav(-1);
+      if (e.key === 'ArrowRight') lbNav(1);
     });
-  });
-}, { threshold: 0, rootMargin: '-40% 0px -55% 0px' });
 
-SECTIONS.forEach(id => {
-  const el = document.getElementById(id);
-  if (el) ioSec.observe(el);
-});
+    // ---- LIGHTBOX ----
+    let lbImages = [], lbIndex = 0;
+    function openLb(images, startIdx, memberName) {
+      lbImages = images;
+      lbIndex = startIdx;
+      document.getElementById('mcLbBg').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      renderLb();
+    }
+    function closeLb() {
+      document.getElementById('mcLbBg').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function lbBgClick(e) {
+      // 画像やボタン以外の背景クリックで閉じる
+      if (e.target === document.getElementById('mcLbBg') ||
+        e.target === document.getElementById('mcLbImgWrap') ||
+        e.target.tagName === 'IMG') closeLb();
+    }
+    function lbNav(dir) {
+      lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+      renderLb();
+    }
+    function renderLb() {
+      const img = lbImages[lbIndex];
+      const wrap = document.getElementById('mcLbImgWrap');
+      if (img.src) {
+        wrap.innerHTML = `<img src="${img.src}" alt="${img.label}">`;
+      } else {
+        wrap.innerHTML = `<div class="mc-lb-ph"><span class="ph-big">🖼</span><span class="ph-txt">${img.label}<br>画像準備中<br><br>立ち絵ファイルを<br>public/members/ に配置してね</span></div>`;
+      }
+      document.getElementById('mcLbCounter').textContent = `${lbIndex + 1} / ${lbImages.length}`;
+      document.getElementById('mcLbPrev').disabled = lbImages.length <= 1;
+      document.getElementById('mcLbNext').disabled = lbImages.length <= 1;
+    }
+    document.getElementById('mcLbBg').addEventListener('click', e => { if (e.target === document.getElementById('mcLbBg')) closeLb(); });
 
-// ===== スパム対策: メールアドレスをJSで動的生成 + クリップボードコピー =====
-(function() {
-  const u = 'okakisaba';
-  const d = 'gmail.com';
-  const addr = u + '\x40' + d;
-  // DOMに動的表示（HTML直書き回避）
-  const disp = document.getElementById('contactMailDisplay');
-  if (disp) disp.textContent = addr;
-  // コピーボタン用にグローバル関数を定義
-  window.copyEmail = function(btn) {
-    navigator.clipboard.writeText(addr).then(() => {
-      showCopyToast();
-      const orig = btn.textContent;
-      btn.textContent = '✔ コピーしました！';
-      setTimeout(() => { btn.textContent = orig; }, 2000);
-    }).catch(() => {
-      // フォールバック: 選択状態にする
+    // members.json と manifest.json を並行ロード
+    Promise.all([
+      fetch('members.json').then(r => r.json()),
+      fetch('members/manifest.json').then(r => r.json()).catch(() => ({}))
+    ]).then(([data, manifest]) => {
+      galleryManifest = manifest;
+
+      // 登録者数（降順）でソート
+      data.sort((a, b) => (b.subscribers || 0) - (a.subscribers || 0));
+
+      // 動的に総メンバー数を更新
+      const countEl = document.getElementById('mcMemberCount');
+      if (countEl) countEl.textContent = data.length;
+
+      const memberList = data
+        .filter(d => d.id !== '運営')
+        .map((d, i) => ({
+          num: i + 1,
+          name: d.name,
+          yt: d.youtube,
+          x: d.x,
+          icon: d.icon,
+          subscribers: d.subscribers ?? null,
+          rec: d.rec ?? null,
+          recTitle: d.recTitle ?? null,
+          generation: d.generation ?? 1
+        }));
+      const staffList = data
+        .filter(d => d.id === '運営')
+        .map((d, i) => ({
+          num: i + 1,
+          name: d.name,
+          yt: d.youtube,
+          x: d.x,
+          icon: d.icon,
+          subscribers: d.subscribers ?? null,
+          rec: d.rec ?? null,
+          recTitle: d.recTitle ?? null,
+          generation: null  // 運営はバッジなし
+        }));
+      buildInv(memberList, document.getElementById('mainInv'));
+      buildInv(staffList, document.getElementById('staffInv'));
+      ioInv.observe(document.getElementById('mainInv'));
+      ioInv.observe(document.getElementById('staffInv'));
+    })
+      .catch(err => console.error('データロード失敗:', err));
+
+    // ===== SECTION NAV =====
+    const SECTIONS = ['hero', 'about', 'memberSec', 'contact'];
+    // スムーズスクロール（クロスブラウザ対応）
+    function smoothScrollTo(targetY, duration = 650) {
+      const startY = window.scrollY;
+      const diff = targetY - startY;
+      let startTime = null;
+      function step(t) {
+        if (!startTime) startTime = t;
+        const p = Math.min(1, (t - startTime) / duration);
+        const ease = p < .5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
+        window.scrollTo(0, startY + diff * ease);
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    function goTo(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const y = el.getBoundingClientRect().top + window.scrollY;
+      smoothScrollTo(y);
+    }
+
+    // ヘッダーとサイドナビのスクロールスパイ
+    const ioSec = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const id = e.target.id;
+        if (id !== 'hero') {
+          document.getElementById('mcHeader').classList.add('visible');
+        } else {
+          document.getElementById('mcHeader').classList.remove('visible');
+        }
+        document.querySelectorAll('[data-sec]').forEach(el => {
+          el.classList.toggle('active', el.dataset.sec === id);
+        });
+      });
+    }, { threshold: 0, rootMargin: '-40% 0px -55% 0px' });
+
+    SECTIONS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) ioSec.observe(el);
+    });
+
+    // ===== スパム対策: メールアドレスをJSで動的生成 + クリップボードコピー =====
+    (function () {
+      const u = 'okakisaba';
+      const d = 'gmail.com';
+      const addr = u + '\x40' + d;
+      // DOMに動的表示（HTML直書き回避）
       const disp = document.getElementById('contactMailDisplay');
-      if (disp) {
-        const sel = window.getSelection();
-        const range = document.createRange();
-        range.selectNodeContents(disp);
-        sel.removeAllRanges();
-        sel.addRange(range);
+      if (disp) disp.textContent = addr;
+      // コピーボタン用にグローバル関数を定義
+      window.copyEmail = function (btn) {
+        navigator.clipboard.writeText(addr).then(() => {
+          showCopyToast();
+          const orig = btn.textContent;
+          btn.textContent = '✔ コピーしました！';
+          setTimeout(() => { btn.textContent = orig; }, 2000);
+        }).catch(() => {
+          // フォールバック: 選択状態にする
+          const disp = document.getElementById('contactMailDisplay');
+          if (disp) {
+            const sel = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(disp);
+            sel.removeAllRanges();
+            sel.addRange(range);
+          }
+        });
+      };
+    })();
+    // ====== HEADER SCROLL (SP Logo & Visibility) ======
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('mcHeader');
+      const aboutSec = document.getElementById('about');
+      if (!header || !aboutSec) return;
+
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      // デスクトップ：一定スクロールでヘッダー出現
+      if (scrollTop > 200) {
+        header.classList.add('visible');
+      } else {
+        header.classList.remove('visible');
+      }
+
+      // SP：Aboutセクション以降でロゴ/ヘッダー出現
+      if (window.innerWidth <= 768) {
+        const aboutTop = aboutSec.offsetTop - 100;
+        if (scrollTop > aboutTop) {
+          header.classList.add('sp-active');
+        } else {
+          header.classList.remove('sp-active');
+        }
       }
     });
-  };
-})();
-function showCopyToast() {
-  const t = document.getElementById('copyToast');
-  if (!t) return;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
 
-// ====== パーティクル ＆ パララックス演出 ======
-(function(){
-  // パララックス演出 (マウス連動)
-  document.addEventListener('mousemove', e => {
-    // 画面中央を原点とした移動量
-    const x = (window.innerWidth / 2 - e.pageX) / 40;
-    const y = (window.innerHeight / 2 - e.pageY) / 40;
-    
-    const logo = document.querySelector('.mc-logo-wrap');
-    if(logo) logo.style.transform = `translate(${x}px, ${y}px)`;
-    
-    // 背景星空は少し遅れて動く
-    const sky = document.querySelector('.night-sky');
-    if(sky) sky.style.transform = `translate(${x * 0.4}px, ${y * 0.4}px)`;
-  });
+    function showCopyToast() {
+      const t = document.getElementById('copyToast');
+      if (!t) return;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
 
-  // パーティクル演出 (マイクラの雪/光のドット風)
-  const canvas = document.getElementById('particleCanvas');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-  
-  function resize() {
-    canvas.width = window.innerWidth;
-    // 最初のヒーローセクションのみに表示させる場合は高さを制限する手もあるが
-    // 全画面に降らせる
-    canvas.height = window.innerHeight; 
-  }
-  window.addEventListener('resize', resize);
-  resize();
+    // ====== パーティクル ＆ パララックス演出 ======
+    (function () {
+      // パララックス演出 (マウス連動)
+      document.addEventListener('mousemove', e => {
+        // 画面中央を原点とした移動量
+        const x = (window.innerWidth / 2 - e.pageX) / 40;
+        const y = (window.innerHeight / 2 - e.pageY) / 40;
 
-  // ドットを生成
-  for(let i = 0; i < 40; i++) {
-    particles.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 4 + 2,
-      vx: (Math.random() - 0.5) * 0.6,
-      vy: Math.random() * 0.8 + 0.3,
-      alpha: Math.random() * 0.5 + 0.3
-    });
-  }
+        const logo = document.querySelector('.mc-logo-wrap');
+        if (logo) logo.style.transform = `translate(${x}px, ${y}px)`;
 
-  function loop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      // 画面下に消えたら上から再出現
-      if(p.y > canvas.height) {
-        p.y = -10;
-        p.x = Math.random() * canvas.width;
+        // 背景星空は少し遅れて動く
+        const sky = document.querySelector('.night-sky');
+        if (sky) sky.style.transform = `translate(${x * 0.4}px, ${y * 0.4}px)`;
+      });
+
+      // パーティクル演出 (マイクラの雪/光のドット風)
+      const canvas = document.getElementById('particleCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        // 最初のヒーローセクションのみに表示させる場合は高さを制限する手もあるが
+        // 全画面に降らせる
+        canvas.height = window.innerHeight;
       }
-      ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
-      // ドット感を持たせるためfillRect
-      ctx.fillRect(Math.floor(p.x), Math.floor(p.y), Math.floor(p.size), Math.floor(p.size));
-    });
-    requestAnimationFrame(loop);
-  }
-  loop();
-})();
-</script>
+      window.addEventListener('resize', resize);
+      resize();
+
+      // ドットを生成
+      for (let i = 0; i < 40; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 4 + 2,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: Math.random() * 0.8 + 0.3,
+          alpha: Math.random() * 0.5 + 0.3
+        });
+      }
+
+      function loop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          // 画面下に消えたら上から再出現
+          if (p.y > canvas.height) {
+            p.y = -10;
+            p.x = Math.random() * canvas.width;
+          }
+          ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+          // ドット感を持たせるためfillRect
+          ctx.fillRect(Math.floor(p.x), Math.floor(p.y), Math.floor(p.size), Math.floor(p.size));
+        });
+        requestAnimationFrame(loop);
+      }
+      loop();
+    })();
+  </script>
 </body>
+
 </html>

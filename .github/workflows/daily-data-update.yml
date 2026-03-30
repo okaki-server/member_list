@@ -26,11 +26,6 @@ jobs:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: node scripts/update_subscribers.js
 
-      - name: Update Recommendation Metadata
-        env:
-          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-        run: node scripts/update_rec_info.js
-
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
