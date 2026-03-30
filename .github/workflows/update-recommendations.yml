@@ -1,0 +1,38 @@
+name: Update Recommendation Metadata
+
+on:
+  schedule:
+    - cron: '0 19 * * *' # 日本時間 04:00 (UTC 19:00)
+  workflow_dispatch:      # 手動実行可能
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Update Recommendation Metadata
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: |
+          node scripts/update_rec_info.js
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add members.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: update recommendation metadata [skip ci]"
+            git push
+          fi

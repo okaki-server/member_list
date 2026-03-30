@@ -1,0 +1,258 @@
+[
+  {
+    "id": "1",
+    "name": "森野めるん",
+    "youtube": "https://www.youtube.com/@MerunChJP",
+    "x": "https://x.com/MerunMorino",
+    "icon": "icons/森野めるん.jpg",
+    "subscribers": 32200,
+    "generation": 2
+  },
+  {
+    "id": "2",
+    "name": "みけだ",
+    "youtube": "https://www.youtube.com/@mikeda_nico",
+    "x": "https://x.com/mikeda_nico",
+    "icon": "icons/みけだ.jpg",
+    "subscribers": 26700
+  },
+  {
+    "id": "3",
+    "name": "大の文字",
+    "youtube": "https://www.youtube.com/@DaiNoMoji",
+    "x": "https://x.com/dainomoji?s=21&t=HwsfSWY2iKMUKnAvPGVx1A",
+    "icon": "icons/大の文字.jpg",
+    "subscribers": 25500
+  },
+  {
+    "id": "4",
+    "name": "春宵かさね",
+    "youtube": "https://www.youtube.com/@HaruyoiKasane",
+    "x": "https://x.com/Haruyoi_Kasane",
+    "icon": "icons/春宵かさね.jpg",
+    "subscribers": 25500
+  },
+  {
+    "id": "5",
+    "name": "いなふだよ",
+    "youtube": "https://www.youtube.com/@LABY_enough",
+    "x": "https://x.com/laby_enough",
+    "icon": "icons/いなふだよ.jpg",
+    "subscribers": 21700
+  },
+  {
+    "id": "6",
+    "name": "式神ありす",
+    "youtube": "https://www.youtube.com/@式神ありす",
+    "x": "https://x.com/Shikigami_Alice",
+    "icon": "icons/式神ありす.jpg",
+    "subscribers": 21500
+  },
+  {
+    "id": "7",
+    "name": "ゆうきこるね",
+    "youtube": "https://www.youtube.com/@korune_startune",
+    "x": "https://x.com/korune_startune?s=21&t=FQrFw22685KayntzPmJT6w",
+    "icon": "icons/ゆうきこるね.jpg",
+    "subscribers": 18100
+  },
+  {
+    "id": "8",
+    "name": "隅川かど",
+    "youtube": "https://www.youtube.com/@SumikawaKado",
+    "x": "https://x.com/SumiKado_cco",
+    "icon": "icons/隅川かど.jpg",
+    "subscribers": 16500
+  },
+  {
+    "id": "9",
+    "name": "渋谷彩乃",
+    "youtube": "https://www.youtube.com/@iroiroayano",
+    "x": "https://x.com/shibuya_ayanono?s=21&t=dBE6mKZQ_NDdidPHzbn7JQ",
+    "icon": "icons/渋谷彩乃.jpg",
+    "subscribers": 15600
+  },
+  {
+    "id": "10",
+    "name": "神故おでん",
+    "youtube": "https://www.youtube.com/@odenkamiyue",
+    "x": "https://x.com/KamiyueOden",
+    "icon": "icons/神故おでん.jpg",
+    "subscribers": 15000
+  },
+  {
+    "id": "11",
+    "name": "眠音",
+    "youtube": "https://www.youtube.com/@mint__mxc",
+    "x": "https://x.com/mint__mxc",
+    "icon": "icons/眠音.jpg",
+    "subscribers": 13400,
+    "generation": 2
+  },
+  {
+    "id": "12",
+    "name": "御神ツミカ",
+    "youtube": "https://www.youtube.com/@mikami_tsumika",
+    "x": "https://x.com/mikami_tsumika",
+    "icon": "icons/御神ツミカ.jpg",
+    "subscribers": 13200,
+    "generation": 2
+  },
+  {
+    "id": "13",
+    "name": "茶々陽ちゃる",
+    "youtube": "https://www.youtube.com/@chachabaru_cha",
+    "x": "https://x.com/chachabaru_cha",
+    "icon": "icons/茶々陽ちゃる.jpg",
+    "subscribers": 12100
+  },
+  {
+    "id": "14",
+    "name": "六花乃ろろ",
+    "youtube": "https://www.youtube.com/@yukinororo",
+    "x": "https://x.com/vgame_roro",
+    "icon": "icons/六花乃ろろ.jpg",
+    "subscribers": 11700
+  },
+  {
+    "id": "15",
+    "name": "りーふ",
+    "youtube": "https://www.youtube.com/@leaf461096",
+    "x": "https://x.com/leaf461096",
+    "icon": "icons/りーふ.jpg",
+    "subscribers": 11300
+  },
+  {
+    "id": "16",
+    "name": "ひよどり",
+    "youtube": "https://www.youtube.com/@hiyodorispla",
+    "x": "https://x.com/hiyodorion",
+    "icon": "icons/ひよどり.jpg",
+    "subscribers": 10900
+  },
+  {
+    "id": "17",
+    "name": "リック",
+    "youtube": "https://www.youtube.com/@ricric1028",
+    "x": "https://x.com/ricric1028",
+    "icon": "icons/リック.jpg",
+    "subscribers": 8980
+  },
+  {
+    "id": "18",
+    "name": "グリゼルダ・フォン・プファンクーヘン",
+    "youtube": "https://www.youtube.com/@Gryselda",
+    "x": "https://x.com/GryseldaPfannku",
+    "icon": "icons/グリゼルダ.jpg",
+    "subscribers": 8890
+  },
+  {
+    "id": "19",
+    "name": "御月一",
+    "youtube": "https://www.youtube.com/@mitukiiti",
+    "x": "https://x.com/mituki_iti",
+    "icon": "icons/御月一.jpg",
+    "subscribers": 8790
+  },
+  {
+    "id": "20",
+    "name": "しゅるくん",
+    "youtube": "https://www.youtube.com/@しゅるくん",
+    "x": "https://x.com/syurukungo",
+    "icon": "icons/しゅるくん.jpg",
+    "subscribers": 7970
+  },
+  {
+    "id": "21",
+    "name": "ふも",
+    "youtube": "https://www.youtube.com/@fumo556",
+    "x": "https://x.com/haraheri556",
+    "icon": "icons/ふも.jpg",
+    "subscribers": 7880
+  },
+  {
+    "id": "22",
+    "name": "やまぐちけい",
+    "youtube": "https://www.youtube.com/@Keiyy_y",
+    "x": "https://x.com/Keiyy_y",
+    "icon": "icons/やまぐちけい.jpg",
+    "subscribers": 7860
+  },
+  {
+    "id": "23",
+    "name": "れとぶき",
+    "youtube": "https://www.youtube.com/@Reto_buki",
+    "x": "https://x.com/Reto_buki",
+    "icon": "icons/れとぶき.jpg",
+    "subscribers": 2960
+  },
+  {
+    "id": "24",
+    "name": "きゅんる",
+    "youtube": "https://www.youtube.com/@obakenoKyunru",
+    "x": "https://x.com/KyunRuQ",
+    "icon": "icons/きゅんる.jpg",
+    "subscribers": 2330
+  },
+  {
+    "id": "25",
+    "name": "らびーたまご",
+    "youtube": "https://www.youtube.com/@LABY_tama5",
+    "x": "https://x.com/tamatamtama5",
+    "icon": "icons/らびーたまご.jpg",
+    "subscribers": 2060,
+    "generation": 2
+  },
+  {
+    "id": "26",
+    "name": "もくもない",
+    "youtube": "https://www.youtube.com/@mqmxx",
+    "x": "https://x.com/mokumo71",
+    "icon": "icons/もくもない.jpg",
+    "subscribers": 1970
+  },
+  {
+    "id": "27",
+    "name": "しんあ",
+    "youtube": "https://www.youtube.com/@sinh__a",
+    "x": "https://x.com/sinh__a",
+    "icon": "icons/しんあ.jpg",
+    "subscribers": 1370,
+    "generation": 2
+  },
+  {
+    "id": "28",
+    "name": "はるすぷりんぐ",
+    "youtube": "https://www.youtube.com/channel/UCe24Yxi9gGMeD07993cRjtg",
+    "x": "https://x.com/ha1sprin9",
+    "icon": "icons/はるすぷりんぐ.jpg",
+    "subscribers": 1040,
+    "recommendUrl": "https://www.youtube.com/playlist?list=PLGAKV0aiNnML4UbPN6KpLBvPfcnKzfxOt",
+    "rec": "list:PLGAKV0aiNnML4UbPN6KpLBvPfcnKzfxOt:6-C3BqetgRU",
+    "recTitle": "雑学・カス嘘shorts"
+  },
+  {
+    "id": "運営",
+    "name": "kaki",
+    "youtube": "https://www.youtube.com/@kakigame",
+    "x": "https://x.com/kakisan116",
+    "icon": "icons/kaki.jpg",
+    "subscribers": null
+  },
+  {
+    "id": "運営",
+    "name": "たけぉ",
+    "youtube": "https://www.youtube.com/@takeogspn",
+    "x": "https://x.com/teamfranktakeo",
+    "icon": "icons/たけぉ.jpg",
+    "subscribers": null
+  },
+  {
+    "id": "運営",
+    "name": "平十こうじ",
+    "youtube": "https://www.youtube.com/@hiratokouji",
+    "x": "https://x.com/hiratokouji",
+    "icon": "icons/平十こうじ.jpg",
+    "subscribers": null
+  }
+]
