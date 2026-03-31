@@ -668,278 +668,9 @@
       border: 2px dashed #aaa;
     }
 
-    /* ---- ギャラリーセクション ---- */
-    .mc-gallery-section {
-      border-top: 2px solid #aaa;
-      padding-top: .75rem;
-      margin-top: .75rem;
-      grid-column: 1 / -1;
-    }
 
-    .mc-gallery-label {
-      font-family: 'Press Start 2P', monospace;
-      font-size: .62rem;
-      color: #555;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      margin-bottom: .6rem;
-    }
 
-    .mc-gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-      gap: 4px;
-    }
 
-    @media(max-width: 580px) {
-      .mc-gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-        gap: 4px;
-      }
-    }
-
-    .mc-gallery-item {
-      aspect-ratio: 3/4;
-      background: #7a7a7a;
-      border-top: 2px solid #c8c8c8;
-      border-left: 2px solid #c8c8c8;
-      border-bottom: 3px solid #222;
-      border-right: 3px solid #222;
-      cursor: pointer;
-      overflow: hidden;
-      position: relative;
-      transition: filter .1s;
-    }
-
-    .mc-gallery-item:hover {
-      filter: brightness(1.3);
-    }
-
-    .mc-gallery-item:hover::after {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      box-shadow: 0 0 0 3px var(--gold), 0 0 12px var(--gold);
-      pointer-events: none;
-    }
-
-    .mc-gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .mc-gallery-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      background: #5a5a5a;
-      border-top: 2px solid rgba(255, 255, 255, .15);
-      border-left: 2px solid rgba(255, 255, 255, .15);
-    }
-
-    .mc-gallery-placeholder .ph-icon {
-      font-size: 1.5rem;
-    }
-
-    .mc-gallery-placeholder .ph-label {
-      font-size: .42rem;
-      color: rgba(255, 248, 231, .5);
-      font-family: 'Press Start 2P', monospace;
-      text-align: center;
-      line-height: 1.5;
-    }
-
-    .mc-gallery-item-num {
-      position: absolute;
-      bottom: 2px;
-      right: 4px;
-      font-family: 'Press Start 2P', monospace;
-      font-size: .35rem;
-      color: rgba(255, 248, 231, .7);
-      text-shadow: 1px 1px 0 #000;
-    }
-
-    /* ---- ライトボックス (フルスクリーン) ---- */
-    .mc-lb-bg {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, .0);
-      z-index: 400;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .25s, background .25s;
-    }
-
-    .mc-lb-bg.open {
-      opacity: 1;
-      pointer-events: all;
-      background: rgba(0, 0, 0, .92);
-    }
-
-    /* 画像本体 */
-    .mc-lb-img-wrap {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 52px 72px;
-      /* オーバーレイUI分の余白 */
-    }
-
-    .mc-lb-img-wrap img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      object-position: center;
-      image-rendering: auto;
-      display: block;
-      transform: scale(.92);
-      transition: transform .3s cubic-bezier(.34, 1.56, .64, 1);
-    }
-
-    .mc-lb-bg.open .mc-lb-img-wrap img {
-      transform: none;
-    }
-
-    /* スマホ: 縦長画像をスクロールで全体を見られるようにする */
-    @media(max-width: 580px) {
-      .mc-lb-img-wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        overflow-y: auto;
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
-        padding: 52px 8px 20px;
-      }
-
-      .mc-lb-img-wrap img {
-        max-width: 100%;
-        max-height: none;
-        /* 高さ制限を外して全体を表示 */
-        height: auto;
-        /* margin auto: スペースがあれば中央、オーバーフロー時は0に縮んで上端スクロール */
-        margin-top: auto;
-        margin-bottom: auto;
-        flex-shrink: 0;
-        touch-action: pan-y pinch-zoom;
-        /* スクロール＋ピンチズーム許可 */
-      }
-    }
-
-    /* プレースホルダー */
-    .mc-lb-ph {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      color: rgba(255, 248, 231, .5);
-      width: 100%;
-      height: 100%;
-    }
-
-    .mc-lb-ph .ph-big {
-      font-size: 3rem;
-    }
-
-    .mc-lb-ph .ph-txt {
-      font-family: 'Press Start 2P', monospace;
-      font-size: .5rem;
-      line-height: 2;
-      text-align: center;
-    }
-
-    /* 閉じるボタン (右上) */
-    .mc-lb-close {
-      position: absolute;
-      top: 14px;
-      right: 16px;
-      z-index: 10;
-      font-size: 1.3rem;
-      line-height: 1;
-      width: 40px;
-      height: 40px;
-      background: rgba(0, 0, 0, .55);
-      color: rgba(255, 255, 255, .85);
-      border: 1px solid rgba(255, 255, 255, .2);
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background .15s, color .15s;
-      font-family: sans-serif;
-    }
-
-    .mc-lb-close:hover {
-      background: var(--red);
-      color: #fff;
-    }
-
-    /* カウンター (上中央) */
-    .mc-lb-counter {
-      position: absolute;
-      top: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: 'DotGothic16', monospace;
-      font-size: .85rem;
-      color: rgba(255, 255, 255, .6);
-      background: rgba(0, 0, 0, .45);
-      padding: .25rem .8rem;
-      border-radius: 999px;
-      pointer-events: none;
-    }
-
-    /* 前後ナビボタン */
-    .mc-lb-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 48px;
-      height: 64px;
-      z-index: 10;
-      background: rgba(0, 0, 0, .45);
-      color: rgba(255, 255, 255, .8);
-      border: 1px solid rgba(255, 255, 255, .15);
-      cursor: pointer;
-      font-size: 1.4rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background .15s, color .15s;
-      font-family: sans-serif;
-      border-radius: 4px;
-    }
-
-    .mc-lb-nav:hover {
-      background: rgba(255, 255, 255, .18);
-      color: #fff;
-    }
-
-    .mc-lb-nav:disabled {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    #mcLbPrev {
-      left: 12px;
-    }
-
-    #mcLbNext {
-      right: 12px;
-    }
 
 
     footer {
@@ -1613,10 +1344,7 @@
           <div class="mc-modal-subs" id="mcModalSubs"></div>
           <div class="mc-modal-links" id="mcModalLinks"></div>
         </div>
-        <div class="mc-gallery-section" id="mcGallerySection">
-          <div class="mc-gallery-label">🖼 イラスト・立ち絵ギャラリー</div>
-          <div class="mc-gallery-grid" id="mcGalleryGrid"></div>
-        </div>
+
         <div class="mc-vid-section" id="mcVidSection">
           <div class="mc-vid-label">🎬 おすすめ動画</div>
           <div id="mcVidArea"></div>
@@ -1626,14 +1354,7 @@
   </div>
 
 
-  <!-- LIGHTBOX (fullscreen) -->
-  <div class="mc-lb-bg" id="mcLbBg" onclick="lbBgClick(event)">
-    <div class="mc-lb-img-wrap" id="mcLbImgWrap"></div>
-    <span class="mc-lb-counter" id="mcLbCounter"></span>
-    <button class="mc-lb-close" onclick="closeLb()">✕</button>
-    <button class="mc-lb-nav" id="mcLbPrev" onclick="lbNav(-1)">&#8249;</button>
-    <button class="mc-lb-nav" id="mcLbNext" onclick="lbNav(1)">&#8250;</button>
-  </div>
+
 
   <script>
     // ---- 星を生成 ----
@@ -1649,8 +1370,7 @@
 
     // ---- DATA (members.jsonから動的ロード) ----
     const PALETTE = ['#5d9c29', '#2e7d32', '#0077b6', '#c43d2e', '#7b2d8b', '#e65100', '#1565c0', '#00695c', '#558b2f', '#ad1457'];
-    // ギャラリーマニフェスト（manifest.jsonから取得）
-    let galleryManifest = {};
+
 
     function buildInv(arr, container) {
       arr.forEach((m, i) => {
@@ -1741,25 +1461,7 @@
         vidArea.innerHTML = '';
       }
 
-      // ギャラリー: manifest.json から画像一覧を取得して表示（モーダルオープン時にロード）
-      const gallerySection = document.getElementById('mcGallerySection');
-      const galleryGrid = document.getElementById('mcGalleryGrid');
-      galleryGrid.innerHTML = '';
-      const images = (galleryManifest[m.name] || []).map((src, i) => ({ src, label: `画像 ${i + 1}` }));
-      if (images.length === 0) {
-        gallerySection.style.display = 'none';
-      } else {
-        gallerySection.style.display = '';
-        const lbData = images;
-        images.forEach((img, idx) => {
-          const item = document.createElement('div');
-          item.className = 'mc-gallery-item';
-          item.title = img.label;
-          item.innerHTML = `<img src="${img.src}" alt="${img.label}" loading="eager" onerror="this.parentElement.classList.add('broken')"><span class="mc-gallery-item-num">${idx + 1}</span>`;
-          item.addEventListener('click', () => openLb(lbData, idx, m.name));
-          galleryGrid.appendChild(item);
-        });
-      }
+
 
       // アイコン画像のロード完了を待ってからモーダルを表示する
       const showModal = () => document.getElementById('mcModalBg').classList.add('open');
@@ -1773,56 +1475,13 @@
 
     function closeMcModal() { document.getElementById('mcModalBg').classList.remove('open'); }
     document.getElementById('mcModalBg').addEventListener('click', e => { if (e.target === document.getElementById('mcModalBg')) closeMcModal(); });
-
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') { closeMcModal(); closeLb(); }
-      if (e.key === 'ArrowLeft') lbNav(-1);
-      if (e.key === 'ArrowRight') lbNav(1);
+      if (e.key === 'Escape') { closeMcModal(); }
     });
 
-    // ---- LIGHTBOX ----
-    let lbImages = [], lbIndex = 0;
-    function openLb(images, startIdx, memberName) {
-      lbImages = images;
-      lbIndex = startIdx;
-      document.getElementById('mcLbBg').classList.add('open');
-      document.body.style.overflow = 'hidden';
-      renderLb();
-    }
-    function closeLb() {
-      document.getElementById('mcLbBg').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    function lbBgClick(e) {
-      // 画像やボタン以外の背景クリックで閉じる
-      if (e.target === document.getElementById('mcLbBg') ||
-        e.target === document.getElementById('mcLbImgWrap') ||
-        e.target.tagName === 'IMG') closeLb();
-    }
-    function lbNav(dir) {
-      lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
-      renderLb();
-    }
-    function renderLb() {
-      const img = lbImages[lbIndex];
-      const wrap = document.getElementById('mcLbImgWrap');
-      if (img.src) {
-        wrap.innerHTML = `<img src="${img.src}" alt="${img.label}">`;
-      } else {
-        wrap.innerHTML = `<div class="mc-lb-ph"><span class="ph-big">🖼</span><span class="ph-txt">${img.label}<br>画像準備中<br><br>立ち絵ファイルを<br>public/members/ に配置してね</span></div>`;
-      }
-      document.getElementById('mcLbCounter').textContent = `${lbIndex + 1} / ${lbImages.length}`;
-      document.getElementById('mcLbPrev').disabled = lbImages.length <= 1;
-      document.getElementById('mcLbNext').disabled = lbImages.length <= 1;
-    }
-    document.getElementById('mcLbBg').addEventListener('click', e => { if (e.target === document.getElementById('mcLbBg')) closeLb(); });
 
-    // members.json と manifest.json を並行ロード
-    Promise.all([
-      fetch('members.json').then(r => r.json()),
-      fetch('members/manifest.json').then(r => r.json()).catch(() => ({}))
-    ]).then(([data, manifest]) => {
-      galleryManifest = manifest;
+    // members.json をロード
+    fetch('members.json').then(r => r.json()).then(data => {
 
       // 登録者数（降順）でソート
       data.sort((a, b) => (b.subscribers || 0) - (a.subscribers || 0));
