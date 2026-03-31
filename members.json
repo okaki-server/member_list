@@ -1,6 +1,22 @@
 [
   {
     "id": "1",
+    "name": "バート・ウィザース",
+    "youtube": "https://www.youtube.com/@burtwithers",
+    "x": "https://x.com/burtwithers5",
+    "icon": "icons/バート・ウィザース.jpg",
+    "subscribers": 204000
+  },
+  {
+    "id": "2",
+    "name": "はたさこ",
+    "youtube": "https://www.youtube.com/@Hatasako/featured",
+    "x": "https://x.com/hatasako_flag",
+    "icon": "icons/はたさこ.jpg",
+    "subscribers": 59100
+  },
+  {
+    "id": "3",
     "name": "森野めるん",
     "youtube": "https://www.youtube.com/@MerunChJP",
     "x": "https://x.com/MerunMorino",
@@ -11,7 +27,15 @@
     "recTitle": "【人生初踊ってみた】チューリングラブ【もりるんるん×安倍霊明📸伊勢えびす】 #ストグラSGPD #緊急大型発生中"
   },
   {
-    "id": "2",
+    "id": "4",
+    "name": "うわ様",
+    "youtube": "https://www.youtube.com/@Uwasama-000",
+    "x": "https://x.com/uwakun_000",
+    "icon": "icons/うわ様.jpg",
+    "subscribers": 29400
+  },
+  {
+    "id": "5",
     "name": "みけだ",
     "youtube": "https://www.youtube.com/@mikeda_nico",
     "x": "https://x.com/mikeda_nico",
@@ -21,15 +45,7 @@
     "recTitle": "うぉんちゅーばっど jon-YAKITORY／みけだ【オリジナルMV・歌ってみた】"
   },
   {
-    "id": "3",
-    "name": "大の文字",
-    "youtube": "https://www.youtube.com/@DaiNoMoji",
-    "x": "https://x.com/dainomoji?s=21&t=HwsfSWY2iKMUKnAvPGVx1A",
-    "icon": "icons/大の文字.jpg",
-    "subscribers": 25600
-  },
-  {
-    "id": "4",
+    "id": "6",
     "name": "春宵かさね",
     "youtube": "https://www.youtube.com/@HaruyoiKasane",
     "x": "https://x.com/Haruyoi_Kasane",
@@ -39,7 +55,26 @@
     "recTitle": "ティザーPVで〇〇をしている自覚のある迷走VTuber【春宵かさね/Vtuber】"
   },
   {
-    "id": "5",
+    "id": "7",
+    "name": "大の文字",
+    "youtube": "https://www.youtube.com/@DaiNoMoji",
+    "x": "https://x.com/dainomoji?s=21&t=HwsfSWY2iKMUKnAvPGVx1A",
+    "icon": "icons/大の文字.jpg",
+    "subscribers": 25600
+  },
+  {
+    "id": "8",
+    "name": "やぎり",
+    "youtube": [
+      "https://www.youtube.com/@%E3%82%84%E3%81%8E%E3%82%8A",
+      "https://www.youtube.com/@yagiri"
+    ],
+    "x": "https://x.com/yagiri_No1?t=UpmBv5WPAP9sbSgGeiCMSg&s=09",
+    "icon": "icons/やぎり.jpg",
+    "subscribers": 22300
+  },
+  {
+    "id": "9",
     "name": "いなふだよ",
     "youtube": "https://www.youtube.com/@LABY_enough",
     "x": "https://x.com/laby_enough",
@@ -49,7 +84,7 @@
     "recTitle": "ストグラ初日でボケが止まらない新規住民「カカッテコ=イナフ」【いなふ/LABY_enough/ストグラシーズン2】"
   },
   {
-    "id": "6",
+    "id": "10",
     "name": "式神ありす",
     "youtube": "https://www.youtube.com/@式神ありす",
     "x": "https://x.com/Shikigami_Alice",
@@ -59,7 +94,7 @@
     "recTitle": "【Memories of MK8DX】Memorial Montage #3 HEADSTART 2019 - HEUX【マリオカート8DX/マリオカート8デラックス】"
   },
   {
-    "id": "7",
+    "id": "11",
     "name": "ゆうきこるね",
     "youtube": "https://www.youtube.com/@korune_startune",
     "x": "https://x.com/korune_startune?s=21&t=FQrFw22685KayntzPmJT6w",
@@ -69,7 +104,15 @@
     "recTitle": "【#vlog 】バンタン卒業制作展2026のトークショーにゲスト出演してきました！【ゆうきこるね/Star☆tune】"
   },
   {
-    "id": "8",
+    "id": "12",
+    "name": "てんさいみゆち",
+    "youtube": "https://www.youtube.com/@%E3%81%A6%E3%82%93%E3%81%95%E3%81%84%E3%81%BF%E3%82%86%E3%81%A1",
+    "x": "https://x.com/miyu_ct03?s=21&t=f5LWNBnX4jYF_MgLSIjOSw",
+    "icon": "icons/てんさいみゆち.jpg",
+    "subscribers": 18200
+  },
+  {
+    "id": "13",
     "name": "隅川かど",
     "youtube": "https://www.youtube.com/@SumikawaKado",
     "x": "https://x.com/SumiKado_cco",
@@ -79,23 +122,7 @@
     "recTitle": "【闘病ガチやばエピソード】指欠損した直後ってどんな感じ？【激痛だけど〇〇だよ】"
   },
   {
-    "id": "9",
-    "name": "渋谷彩乃",
-    "youtube": "https://www.youtube.com/@iroiroayano",
-    "x": "https://x.com/shibuya_ayanono?s=21&t=dBE6mKZQ_NDdidPHzbn7JQ",
-    "icon": "icons/渋谷彩乃.jpg",
-    "subscribers": 15600
-  },
-  {
-    "id": "10",
-    "name": "神故おでん",
-    "youtube": "https://www.youtube.com/@odenkamiyue",
-    "x": "https://x.com/KamiyueOden",
-    "icon": "icons/神故おでん.jpg",
-    "subscribers": 15000
-  },
-  {
-    "id": "11",
+    "id": "14",
     "name": "眠音",
     "youtube": "https://www.youtube.com/@mint__mxc",
     "x": "https://x.com/mint__mxc",
@@ -106,7 +133,31 @@
     "recTitle": "【MV】ひとりがたり feat.初音ミク"
   },
   {
-    "id": "12",
+    "id": "15",
+    "name": "渋谷彩乃",
+    "youtube": "https://www.youtube.com/@iroiroayano",
+    "x": "https://x.com/shibuya_ayanono?s=21&t=dBE6mKZQ_NDdidPHzbn7JQ",
+    "icon": "icons/渋谷彩乃.jpg",
+    "subscribers": 15600
+  },
+  {
+    "id": "16",
+    "name": "神故おでん",
+    "youtube": "https://www.youtube.com/@odenkamiyue",
+    "x": "https://x.com/KamiyueOden",
+    "icon": "icons/神故おでん.jpg",
+    "subscribers": 15000
+  },
+  {
+    "id": "17",
+    "name": "九ミカ",
+    "youtube": "https://www.youtube.com/@%E4%B9%9D%E3%83%9F%E3%82%AB",
+    "x": "https://x.com/1ziKu_Mika",
+    "icon": "icons/九ミカ.jpg",
+    "subscribers": 14900
+  },
+  {
+    "id": "18",
     "name": "御神ツミカ",
     "youtube": "https://www.youtube.com/@mikami_tsumika",
     "x": "https://x.com/mikami_tsumika",
@@ -117,7 +168,7 @@
     "recTitle": "【歌ってみた】少女A / 椎名もた - 御神ツミカ【新人VTuber】"
   },
   {
-    "id": "13",
+    "id": "19",
     "name": "茶々陽ちゃる",
     "youtube": "https://www.youtube.com/@chachabaru_cha",
     "x": "https://x.com/chachabaru_cha",
@@ -127,7 +178,7 @@
     "recTitle": "【雑談】初見さん大歓迎！来てくれた人の数だけ増え続ける細胞雑談配信【新人Vtuber】"
   },
   {
-    "id": "14",
+    "id": "20",
     "name": "六花乃ろろ",
     "youtube": "https://www.youtube.com/@yukinororo",
     "x": "https://x.com/vgame_roro",
@@ -137,7 +188,7 @@
     "recTitle": "【自己紹介】六花乃ろろです！【新人Vtuber】"
   },
   {
-    "id": "15",
+    "id": "21",
     "name": "りーふ",
     "youtube": "https://www.youtube.com/@leaf461096",
     "x": "https://x.com/leaf461096",
@@ -145,7 +196,7 @@
     "subscribers": 11300
   },
   {
-    "id": "16",
+    "id": "22",
     "name": "ひよどり",
     "youtube": "https://www.youtube.com/@hiyodorispla",
     "x": "https://x.com/hiyodorion",
@@ -153,7 +204,7 @@
     "subscribers": 11000
   },
   {
-    "id": "17",
+    "id": "23",
     "name": "リック",
     "youtube": "https://www.youtube.com/@ricric1028",
     "x": "https://x.com/ricric1028",
@@ -163,7 +214,7 @@
     "recTitle": "【最強解禁】メガミュウツーXが新環境にブチ刺さってる最強ポケモンだったwww【ポケモンZA】"
   },
   {
-    "id": "18",
+    "id": "24",
     "name": "グリゼルダ・フォン・プファンクーヘン",
     "youtube": "https://www.youtube.com/@Gryselda",
     "x": "https://x.com/GryseldaPfannku",
@@ -173,7 +224,7 @@
     "recTitle": "【ティザーPV】新人怪盗Vtuber🌟グリゼルダ・フォン・プファンクーヘンですっ！【TeaserPV】"
   },
   {
-    "id": "19",
+    "id": "25",
     "name": "御月一",
     "youtube": "https://www.youtube.com/@mitukiiti",
     "x": "https://x.com/mituki_iti",
@@ -183,7 +234,7 @@
     "recTitle": "【#オリジナル曲 】ジンセイオウカ【#個人Vtuber/御月一】"
   },
   {
-    "id": "20",
+    "id": "26",
     "name": "しゅるくん",
     "youtube": "https://www.youtube.com/@しゅるくん",
     "x": "https://x.com/syurukungo",
@@ -193,7 +244,7 @@
     "recTitle": "『普段騒がしい人が』トンデモワンダーズ   |   しゅるくん『歌ってみた』"
   },
   {
-    "id": "21",
+    "id": "27",
     "name": "ふも",
     "youtube": "https://www.youtube.com/@fumo556",
     "x": "https://x.com/haraheri556",
@@ -201,15 +252,15 @@
     "subscribers": 7880
   },
   {
-    "id": "22",
-    "name": "やまぐちけい",
-    "youtube": "https://www.youtube.com/@Keiyy_y",
-    "x": "https://x.com/Keiyy_y",
-    "icon": "icons/やまぐちけい.jpg",
-    "subscribers": 1140
+    "id": "28",
+    "name": "リリカ・ルシャトリエ",
+    "youtube": "https://www.youtube.com/@Lyrical24",
+    "x": "https://x.com/LyricaLeChat",
+    "icon": "icons/リリカ・ルシャトリエ.jpg",
+    "subscribers": 7800
   },
   {
-    "id": "23",
+    "id": "29",
     "name": "れとぶき",
     "youtube": "https://www.youtube.com/@Reto_buki",
     "x": "https://x.com/Reto_buki",
@@ -219,7 +270,7 @@
     "recTitle": "【あいうえおんがく♬ / GReeeeN】歌ってみた"
   },
   {
-    "id": "24",
+    "id": "30",
     "name": "きゅんる",
     "youtube": "https://www.youtube.com/@obakenoKyunru",
     "x": "https://x.com/KyunRuQ",
@@ -227,7 +278,7 @@
     "subscribers": 2340
   },
   {
-    "id": "25",
+    "id": "31",
     "name": "らびーたまご",
     "youtube": "https://www.youtube.com/@LABY_tama5",
     "x": "https://x.com/tamatamtama5",
@@ -238,7 +289,7 @@
     "recTitle": "【ASMR】小ボケ連発ASMR。癒し(？)の時間をあなたに。"
   },
   {
-    "id": "26",
+    "id": "32",
     "name": "もくもない",
     "youtube": "https://www.youtube.com/@mqmxx",
     "x": "https://x.com/mokumo71",
@@ -246,7 +297,7 @@
     "subscribers": 1970
   },
   {
-    "id": "27",
+    "id": "33",
     "name": "しんあ",
     "youtube": "https://www.youtube.com/@sinh__a",
     "x": "https://x.com/sinh__a",
@@ -257,7 +308,18 @@
     "recTitle": "味方、期待してるよ"
   },
   {
-    "id": "28",
+    "id": "34",
+    "name": "やまぐちけい",
+    "youtube": [
+      "https://www.youtube.com/@Keiyy_y",
+      "https://www.youtube.com/@KeiChannel0924"
+    ],
+    "x": "https://x.com/Keiyy_y",
+    "icon": "icons/やまぐちけい.jpg",
+    "subscribers": 1140
+  },
+  {
+    "id": "35",
     "name": "はるすぷりんぐ",
     "youtube": "https://www.youtube.com/channel/UCe24Yxi9gGMeD07993cRjtg",
     "x": "https://x.com/ha1sprin9",
@@ -270,7 +332,10 @@
   {
     "id": "運営",
     "name": "kaki",
-    "youtube": "https://www.youtube.com/@kakigame",
+    "youtube": [
+      "https://www.youtube.com/@kakigame",
+      "https://www.youtube.com/@kakistgrch"
+    ],
     "x": "https://x.com/kakisan116",
     "icon": "icons/kaki.jpg",
     "subscribers": 163000,

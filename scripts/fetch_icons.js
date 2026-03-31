@@ -14,9 +14,8 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { JSDOM } from 'jsdom';
 
-const __dirname  = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const MEMBERS_JSON = path.resolve(__dirname, '../members.json');
 
 async function getYouTubeIcon(url) {
@@ -27,9 +26,8 @@ async function getYouTubeIcon(url) {
       }
     });
     const html = await response.text();
-    const dom  = new JSDOM(html);
-    const meta = dom.window.document.querySelector('meta[property="og:image"]');
-    return meta ? meta.content : null;
+    const match = html.match(/<meta property="og:image" content="([^"]+)">/);
+    return match ? match[1] : null;
   } catch (err) {
     console.error(`  ❌ Error: ${url} - ${err.message}`);
     return null;
@@ -43,7 +41,8 @@ async function main() {
   for (const member of members) {
     if (!member.youtube) continue;
     process.stdout.write(`  🔍 ${member.name} ... `);
-    const iconUrl = await getYouTubeIcon(member.youtube);
+    const ytUrl = Array.isArray(member.youtube) ? member.youtube[0] : member.youtube;
+    const iconUrl = await getYouTubeIcon(ytUrl);
     if (iconUrl) {
       member.icon = iconUrl;
       updated++;
