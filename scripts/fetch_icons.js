@@ -41,7 +41,7 @@ async function main() {
   for (const member of members) {
     if (!member.youtube) continue;
     process.stdout.write(`  🔍 ${member.name} ... `);
-    const ytUrl = Array.isArray(member.youtube) ? member.youtube[0] : member.youtube;
+    const ytUrl = member.iconUrlSource || (Array.isArray(member.youtube) ? member.youtube[0] : member.youtube);
     const iconUrl = await getYouTubeIcon(ytUrl);
     if (iconUrl) {
       member.icon = iconUrl;
