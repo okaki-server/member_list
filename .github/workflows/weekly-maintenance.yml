@@ -21,9 +21,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm ci || npm install # package-lock.jsonがない場合はinstall
-
       - name: Update Subscribers & Featured Videos
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
