@@ -107,6 +107,10 @@ async function main() {
 
   let updatedCount = 0;
   for (const m of members) {
+    if (m.isRecManual) {
+      console.log(`  ⏭️  ${m.name} (手動設定のためスキップ)`);
+      continue;
+    }
     const cid = nameToId.get(m.name);
     if (cid && channelToVideo.has(cid)) {
       const vid = channelToVideo.get(cid);

@@ -21,13 +21,15 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Dependencies
-        run: npm install jsdom
+      - name: Install dependencies
+        run: npm ci || npm install # package-lock.jsonがない場合はinstall
 
-      - name: Update Featured Videos (API)
+      - name: Update Subscribers & Featured Videos
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-        run: node scripts/update_recommendations_api.js
+        run: |
+          node scripts/update_subscribers.js
+          node scripts/update_recommendations_api.js
 
       - name: Fetch Latest YouTube Icons
         env:

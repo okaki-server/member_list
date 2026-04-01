@@ -21,10 +21,12 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Update Subscribers
+      - name: Update Data (Subscribers & Recommendations)
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-        run: node scripts/update_subscribers.js
+        run: |
+          node scripts/update_subscribers.js
+          node scripts/update_recommendations_api.js
 
       - name: Commit and push if changed
         run: |

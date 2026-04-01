@@ -108,16 +108,25 @@ async function main() {
 
   // チャンネルIDの解決
   console.log('\n🔍 チャンネルID を解決中...');
-  const idMap = new Map(); // member index → channelId
-  const channelIds = [];
+  const memberToChannels = new Map(); // member name -> Array<{ url: string, channelId: string }>
+  const allChannelIds = new Set();
 
   for (const member of targets) {
     process.stdout.write(`  ${member.name} ... `);
-    const channelId = await resolveChannelId(member.youtube);
-    if (channelId) {
-      idMap.set(member.name, channelId);
-      channelIds.push(channelId);
-      console.log(`✅ ${channelId}`);
+    const urls = Array.isArray(member.youtube) ? member.youtube : [member.youtube];
+    const resolved = [];
+
+    for (const url of urls) {
+      const channelId = await resolveChannelId(url);
+      if (channelId) {
+        resolved.push({ url, channelId });
+        allChannelIds.add(channelId);
+      }
+    }
+
+    if (resolved.length > 0) {
+      memberToChannels.set(member.name, resolved);
+      console.log(`✅ ${resolved.length} 件解決`);
     } else {
       console.log('❌ 取得失敗（スキップ）');
     }
@@ -125,17 +134,42 @@ async function main() {
 
   // 登録者数の一括取得
   console.log('\n📊 登録者数を取得中...');
-  const subsMap = await fetchSubscriberCounts([...new Set(channelIds)]);
+  const subsMap = await fetchSubscriberCounts([...allChannelIds]);
 
   // members.json を更新
   let updatedCount = 0;
   for (const member of members) {
-    const channelId = idMap.get(member.name);
-    if (channelId && subsMap.has(channelId)) {
-      const newSubs = subsMap.get(channelId);
-      if (member.subscribers !== newSubs) {
-        console.log(`  📈 ${member.name}: ${member.subscribers?.toLocaleString() ?? '未設定'} → ${newSubs.toLocaleString()}`);
-        member.subscribers = newSubs;
+    const channels = memberToChannels.get(member.name);
+    if (!channels) continue;
+
+    // 各チャンネルの登録者数を確認し、最大のものを見つける
+    let maxSubs = -1;
+    let mainChannelUrl = null;
+
+    for (const ch of channels) {
+      const count = subsMap.get(ch.channelId) ?? 0;
+      if (count > maxSubs) {
+        maxSubs = count;
+        mainChannelUrl = ch.url;
+      }
+    }
+
+    if (maxSubs !== -1) {
+      // YouTube URL の順序を入れ替え（最多を先頭に）
+      if (Array.isArray(member.youtube)) {
+        const otherUrls = member.youtube.filter(u => u !== mainChannelUrl);
+        const newUrls = [mainChannelUrl, ...otherUrls];
+        if (JSON.stringify(member.youtube) !== JSON.stringify(newUrls)) {
+          console.log(`  🔄 ${member.name}: メインチャンネルを入れ替えました`);
+          member.youtube = newUrls;
+          updatedCount++;
+        }
+      }
+
+      // 登録者数の更新
+      if (member.subscribers !== maxSubs) {
+        console.log(`  📈 ${member.name}: ${member.subscribers?.toLocaleString() ?? '未設定'} → ${maxSubs.toLocaleString()}`);
+        member.subscribers = maxSubs;
         updatedCount++;
       }
     }

@@ -138,7 +138,10 @@
     "id": "15",
     "name": "渋谷彩乃",
     "youtube": "https://www.youtube.com/@iroiroayano",
-    "x": "https://x.com/shibuya_ayanono?s=21&t=dBE6mKZQ_NDdidPHzbn7JQ",
+    "x": [
+      "https://x.com/shibuya_ayanono",
+      "https://x.com/iroiroayano"
+    ],
     "icon": "icons/渋谷彩乃.jpg",
     "subscribers": 15600
   },
@@ -300,7 +303,10 @@
     "youtube": "https://www.youtube.com/@mqmxx",
     "x": "https://x.com/mokumo71",
     "icon": "icons/もくもない.jpg",
-    "subscribers": 1970
+    "subscribers": 1970,
+    "rec": "JI372sL1JG0",
+    "recTitle": "【 怖がらないVtuber 】自己ベスト 1:00:18 越えチャレンジ！ - Outlast RTA",
+    "isRecManual": true
   },
   {
     "id": "33",
@@ -320,7 +326,10 @@
       "https://www.youtube.com/@Keiyy_y",
       "https://www.youtube.com/@KeiChannel0924"
     ],
-    "x": "https://x.com/Keiyy_y",
+    "x": [
+      "https://x.com/Keiyy_y",
+      "https://x.com/akn_kate"
+    ],
     "icon": "icons/やまぐちけい.jpg",
     "subscribers": 1140
   },
@@ -333,7 +342,8 @@
     "subscribers": 1040,
     "recommendUrl": "https://www.youtube.com/playlist?list=PLGAKV0aiNnML4UbPN6KpLBvPfcnKzfxOt",
     "rec": "list:PLGAKV0aiNnML4UbPN6KpLBvPfcnKzfxOt:6-C3BqetgRU",
-    "recTitle": "雑学・カス嘘shorts"
+    "recTitle": "雑学・カス嘘shorts",
+    "isRecManual": true
   },
   {
     "id": "運営",
