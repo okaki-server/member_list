@@ -1,0 +1,21 @@
+{
+  "name": "member-list",
+  "version": "1.0.0",
+  "description": "おかき鯖 メンバー紹介サイトのデータ管理",
+  "type": "module",
+  "main": "index.html",
+  "scripts": {
+    "update-subs": "node scripts/update_subscribers.js",
+    "update-recs": "node scripts/update_recommendations_api.js",
+    "fetch-icons": "node scripts/fetch_icons.js",
+    "download-icons": "node scripts/download_icons.js"
+  },
+  "keywords": [
+    "minecraft",
+    "okaki-server",
+    "youtube"
+  ],
+  "author": "Okaki Server",
+  "license": "ISC",
+  "dependencies": {}
+}
