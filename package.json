@@ -8,7 +8,8 @@
     "update-subs": "node scripts/update_subscribers.js",
     "update-recs": "node scripts/update_recommendations_api.js",
     "fetch-icons": "node scripts/fetch_icons.js",
-    "download-icons": "node scripts/download_icons.js"
+    "download-icons": "node scripts/download_icons.js",
+    "start": "npx serve ."
   },
   "keywords": [
     "minecraft",

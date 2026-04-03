@@ -1404,18 +1404,21 @@
     }
 
     // Scroll reveal container
-    const ioInv = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          const slots = e.target.querySelectorAll('.inv-slot');
-          slots.forEach((el, i) => {
-            // 先頭から順に30ms間隔でパラパラと表示
-            setTimeout(() => el.classList.add('vis'), i * 30);
-          });
-          ioInv.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.1 });
+    let ioInv;
+    if (window.IntersectionObserver) {
+      ioInv = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            const slots = e.target.querySelectorAll('.inv-slot');
+            slots.forEach((el, i) => {
+              // 先頭から順に30ms間隔でパラパラと表示
+              setTimeout(() => el.classList.add('vis'), i * 30);
+            });
+            if (ioInv) ioInv.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+    }
 
     // MC Modal
     function openMcModal(m, color) {
@@ -1515,10 +1518,10 @@
           yt: d.youtube,
           x: d.x,
           icon: d.icon,
-          subscribers: d.subscribers ?? null,
-          rec: d.rec ?? null,
-          recTitle: d.recTitle ?? null,
-          generation: d.generation ?? 1
+          subscribers: d.subscribers !== undefined ? d.subscribers : null,
+          rec: d.rec !== undefined ? d.rec : null,
+          recTitle: d.recTitle !== undefined ? d.recTitle : null,
+          generation: d.generation !== undefined ? d.generation : 1
         }));
       const staffList = data
         .filter(d => d.id === '運営')
@@ -1528,17 +1531,34 @@
           yt: d.youtube,
           x: d.x,
           icon: d.icon,
-          subscribers: d.subscribers ?? null,
-          rec: d.rec ?? null,
-          recTitle: d.recTitle ?? null,
+          subscribers: d.subscribers !== undefined ? d.subscribers : null,
+          rec: d.rec !== undefined ? d.rec : null,
+          recTitle: d.recTitle !== undefined ? d.recTitle : null,
           generation: null  // 運営はバッジなし
         }));
       buildInv(memberList, document.getElementById('mainInv'));
       buildInv(staffList, document.getElementById('staffInv'));
-      ioInv.observe(document.getElementById('mainInv'));
-      ioInv.observe(document.getElementById('staffInv'));
+      if (ioInv) {
+        ioInv.observe(document.getElementById('mainInv'));
+        ioInv.observe(document.getElementById('staffInv'));
+      } else {
+        // フォールバック: IntersectionObserver非対応時は即座に全表示
+        const allSlots = document.querySelectorAll('.inv-slot');
+        for (var i = 0; i < allSlots.length; i++) {
+          allSlots[i].classList.add('vis');
+        }
+      }
     })
-      .catch(err => console.error('データロード失敗:', err));
+      .catch(err => {
+        console.error('データロード失敗:', err);
+        const mainInv = document.getElementById('mainInv');
+        if (mainInv) {
+          mainInv.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 2rem; background: rgba(0,0,0,0.3); border: 2px dashed var(--red); color: #fff;">
+            <p>⚠ メンバーリストの読み込みに失敗しました。</p>
+            <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">ブラウザを更新するか、通信環境を確認してください。</p>
+          </div>`;
+        }
+      });
 
     // ===== SECTION NAV =====
     const SECTIONS = ['hero', 'about', 'memberSec', 'contact'];
@@ -1594,23 +1614,36 @@
       if (disp) disp.textContent = addr;
       // コピーボタン用にグローバル関数を定義
       window.copyEmail = function (btn) {
+        if (!navigator.clipboard || !navigator.clipboard.writeText) {
+          fallbackCopy(btn);
+          return;
+        }
         navigator.clipboard.writeText(addr).then(() => {
           showCopyToast();
           const orig = btn.textContent;
           btn.textContent = '✔ コピーしました！';
           setTimeout(() => { btn.textContent = orig; }, 2000);
-        }).catch(() => {
-          // フォールバック: 選択状態にする
-          const disp = document.getElementById('contactMailDisplay');
-          if (disp) {
-            const sel = window.getSelection();
-            const range = document.createRange();
-            range.selectNodeContents(disp);
-            sel.removeAllRanges();
-            sel.addRange(range);
-          }
+        }).catch(err => {
+          console.error('Clipboard error:', err);
+          fallbackCopy(btn);
         });
       };
+
+      function fallbackCopy(btn) {
+        // フォールバック: 選択状態にする
+        const disp = document.getElementById('contactMailDisplay');
+        if (disp) {
+          const sel = window.getSelection();
+          const range = document.createRange();
+          range.selectNodeContents(disp);
+          sel.removeAllRanges();
+          sel.addRange(range);
+          showCopyToast();
+          const orig = btn.textContent;
+          btn.textContent = '✔ 選択しました！';
+          setTimeout(() => { btn.textContent = orig; }, 2000);
+        }
+      }
     })();
     // ====== HEADER SCROLL (SP Logo & Visibility) ======
     window.addEventListener('scroll', () => {
