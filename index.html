@@ -249,7 +249,7 @@
 
     .mc-version {
       font-size: .5rem;
-      color: rgba(255, 248, 231, .4);
+      color: rgba(255, 248, 231, .6);
       text-shadow: 1px 1px 0 #000;
     }
 
@@ -316,9 +316,53 @@
       }
     }
 
+    /* ---- ローディングスケルトン（データ取得中の空白防止） ---- */
+    .inv-skel {
+      background: #8b8b8b;
+      border-top: 4px solid #c8c8c8;
+      border-left: 4px solid #c8c8c8;
+      border-bottom: 4px solid #373737;
+      border-right: 4px solid #373737;
+      padding: .85rem .65rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .inv-skel-av {
+      width: 120px;
+      height: 120px;
+      background: #6f6f6f;
+    }
+
+    .inv-skel-name {
+      width: 75%;
+      height: .82rem;
+      margin-top: .2rem;
+      background: #6f6f6f;
+    }
+
+    .inv-skel-av,
+    .inv-skel-name {
+      animation: skelPulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes skelPulse {
+
+      0%,
+      100% {
+        opacity: .45;
+      }
+
+      50% {
+        opacity: .85;
+      }
+    }
+
     .inv-slot:hover {
       border-color: var(--gold);
-      filter: brightness(1.25);
+      background: #9b9b9b;
     }
 
     .inv-slot:hover::after {
@@ -367,8 +411,8 @@
       top: 2px;
       right: 4px;
       font-family: 'Press Start 2P', monospace;
-      font-size: .4rem;
-      color: rgba(255, 248, 231, .7);
+      font-size: .5rem;
+      color: rgba(255, 248, 231, .85);
       text-shadow: 1px 1px 0 #000;
     }
 
@@ -583,9 +627,9 @@
     }
 
     .mc-link {
-      font-family: 'Press Start 2P', monospace;
-      font-size: .58rem;
-      padding: .5rem .8rem;
+      font-family: 'Press Start 2P', 'DotGothic16', monospace;
+      font-size: .62rem;
+      padding: .55rem .85rem;
       border: none;
       cursor: pointer;
       text-decoration: none;
@@ -694,7 +738,7 @@
       text-align: center;
       padding: 3rem 0 1rem;
       font-size: .6rem;
-      color: rgba(255, 248, 231, .4);
+      color: rgba(255, 248, 231, .6);
       text-shadow: 1px 1px 0 #000;
     }
 
@@ -1341,7 +1385,7 @@
     <footer>
       <div class="mc-footer-copyright">© 2026 おかき鯖 (Okaki Server) All Rights Reserved.</div>
       <div class="mc-footer-notice"
-        style="font-size: 0.6rem; color: #888; text-shadow: none; margin-top: 5px; font-family: sans-serif;">
+        style="font-size: 0.6rem; color: #a8a8a8; text-shadow: none; margin-top: 5px; font-family: sans-serif;">
         ※当サイトに掲載されている各メンバーのアイコン・立ち絵等の著作権および肖像権は、各クリエイターおよびご本人に帰属します。無断転載を禁じます。
       </div>
     </footer>
@@ -1500,8 +1544,19 @@
     });
 
 
+    // ---- ローディングスケルトン表示（データ取得中の空白防止） ----
+    (function () {
+      const skelHtml = '<div class="inv-skel"><div class="inv-skel-av"></div><div class="inv-skel-name"></div></div>'.repeat(12);
+      const mainInv = document.getElementById('mainInv');
+      if (mainInv) mainInv.innerHTML = skelHtml;
+    })();
+
     // members.json をロード
     fetch('members.json').then(r => r.json()).then(data => {
+
+      // スケルトンを除去してから描画
+      document.getElementById('mainInv').innerHTML = '';
+      document.getElementById('staffInv').innerHTML = '';
 
       // 登録者数（降順）でソート
       data.sort((a, b) => (b.subscribers || 0) - (a.subscribers || 0));
