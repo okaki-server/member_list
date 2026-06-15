@@ -113,10 +113,11 @@ async function main() {
 
   for (const member of targets) {
     process.stdout.write(`  ${member.name} ... `);
-    const urls = Array.isArray(member.youtube) ? member.youtube : [member.youtube];
+    const rawUrls = Array.isArray(member.youtube) ? member.youtube : [member.youtube];
     const resolved = [];
 
-    for (const url of urls) {
+    for (const entry of rawUrls) {
+      const url = typeof entry === 'object' && entry.url ? entry.url : entry;
       const channelId = await resolveChannelId(url);
       if (channelId) {
         resolved.push({ url, channelId });
@@ -142,36 +143,15 @@ async function main() {
     const channels = memberToChannels.get(member.name);
     if (!channels) continue;
 
-    // 各チャンネルの登録者数を確認し、最大のものを見つける
-    let maxSubs = -1;
-    let mainChannelUrl = null;
+    // 配列先頭（＝メイン）チャンネルの登録者数を採用する
+    // ※ youtube フィールドの順序は意図的に並べているため、自動入れ替えは行わない
+    const mainChannel = channels[0];
+    const mainSubs = subsMap.get(mainChannel.channelId) ?? -1;
 
-    for (const ch of channels) {
-      const count = subsMap.get(ch.channelId) ?? 0;
-      if (count > maxSubs) {
-        maxSubs = count;
-        mainChannelUrl = ch.url;
-      }
-    }
-
-    if (maxSubs !== -1) {
-      // YouTube URL の順序を入れ替え（最多を先頭に）
-      if (Array.isArray(member.youtube)) {
-        const otherUrls = member.youtube.filter(u => u !== mainChannelUrl);
-        const newUrls = [mainChannelUrl, ...otherUrls];
-        if (JSON.stringify(member.youtube) !== JSON.stringify(newUrls)) {
-          console.log(`  🔄 ${member.name}: メインチャンネルを入れ替えました`);
-          member.youtube = newUrls;
-          updatedCount++;
-        }
-      }
-
-      // 登録者数の更新
-      if (member.subscribers !== maxSubs) {
-        console.log(`  📈 ${member.name}: ${member.subscribers?.toLocaleString() ?? '未設定'} → ${maxSubs.toLocaleString()}`);
-        member.subscribers = maxSubs;
-        updatedCount++;
-      }
+    if (mainSubs !== -1 && member.subscribers !== mainSubs) {
+      console.log(`  📈 ${member.name}: ${member.subscribers?.toLocaleString() ?? '未設定'} → ${mainSubs.toLocaleString()}`);
+      member.subscribers = mainSubs;
+      updatedCount++;
     }
   }
 

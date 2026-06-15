@@ -1447,7 +1447,7 @@
           a.target = '_blank';
           a.rel = 'noopener';
           a.href = typeof u === 'string' ? u : u.url;
-          const subLabel = typeof u === 'object' && u.label ? ` ${u.label}` : (i > 0 ? `(Sub)` : '');
+          const subLabel = typeof u === 'object' && u.label ? ` (${u.label})` : '';
           a.textContent = `${baseLabel} ${subLabel}`.trim();
           linksWrap.appendChild(a);
         });
