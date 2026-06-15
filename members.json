@@ -86,10 +86,13 @@
   {
     "id": "10",
     "name": "式神ありす",
-    "youtube": "https://www.youtube.com/@式神ありす",
+    "youtube": [
+      {"url": "https://www.youtube.com/@ShikigamiAlice-Minecraft", "label": "マイクラ"},
+      {"url": "https://www.youtube.com/@式神ありす", "label": "マリカ"}
+    ],
     "x": "https://x.com/Shikigami_Alice",
     "icon": "icons/式神ありす.jpg",
-    "subscribers": 21700,
+    "subscribers": 55600,
     "rec": "XJ9LyyULgA4",
     "recTitle": "【Memories of MK8DX】Memorial Montage #3 HEADSTART 2019 - HEUX【マリオカート8DX/マリオカート8デラックス】"
   },
