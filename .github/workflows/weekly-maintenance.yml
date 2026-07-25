@@ -25,12 +25,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Update Subscribers & Featured Videos
+      # 登録者数は daily-data-update.yml が毎日更新しているのでここでは実行しない
+      - name: Update Featured Videos
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-        run: |
-          node scripts/update_subscribers.js
-          node scripts/update_recommendations_api.js
+        run: node scripts/update_recommendations_api.js
 
       - name: Fetch Latest YouTube Icons
         env:
