@@ -12,8 +12,8 @@
   <meta property="og:title" content="おかき鯖 | メンバー紹介">
   <meta property="og:description"
     content="kaki・たけぉが運営する『おかき鯖』のメンバー紹介ページ。本気でチャンネルを伸ばしたい意欲的な配信者が集まり、共に企画配信を楽しんだりノウハウを共有し合うクリエイターコミュニティです。">
-  <meta property="og:image" content="https://okaki-server.github.io/member-list/img/ogp.png">
-  <meta property="og:url" content="https://okaki-server.github.io/member-list/">
+  <meta property="og:image" content="https://okaki-server.github.io/member_list/img/ogp.png">
+  <meta property="og:url" content="https://okaki-server.github.io/member_list/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="おかき鯖">
 
@@ -22,13 +22,23 @@
   <meta name="twitter:title" content="おかき鯖 | メンバー紹介">
   <meta name="twitter:description"
     content="kaki・たけぉが運営する『おかき鯖』のメンバー紹介ページ。本気でチャンネルを伸ばしたい意欲的な配信者が集まり、共に企画配信を楽しんだりノウハウを共有し合うクリエイターコミュニティです。">
-  <meta name="twitter:image" content="https://okaki-server.github.io/member-list/img/ogp.png">
+  <meta name="twitter:image" content="https://okaki-server.github.io/member_list/img/ogp.png">
 
+  <link rel="canonical" href="https://okaki-server.github.io/member_list/">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <meta name="theme-color" content="#16213e">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+Rounded+1c:wght@400;700&family=Press+Start+2P&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap"
     rel="stylesheet">
+  <!-- アイコンフォントは display=block（読み込み前に ligature 名が生テキストで出るのを防ぐ） -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
     rel="stylesheet">
   <style>
     :root {
@@ -56,7 +66,6 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      image-rendering: pixelated;
     }
 
     body {
@@ -261,6 +270,8 @@
     .mc-section-title {
       font-family: 'DotGothic16', monospace;
       font-size: clamp(1rem, 2.5vw, 1.35rem);
+      font-weight: 400;
+      /* h2 化しても DotGothic16 が擬似ボールドにならないよう明示 */
       color: var(--gold);
       text-shadow: 3px 3px 0 #7a5900;
       text-align: center;
@@ -395,7 +406,6 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      image-rendering: auto;
     }
 
     .slot-av::after {
@@ -404,16 +414,6 @@
       inset: 0;
       background: linear-gradient(135deg, rgba(255, 255, 255, .2) 0%, transparent 50%);
       pointer-events: none;
-    }
-
-    .slot-num {
-      position: absolute;
-      top: 2px;
-      right: 4px;
-      font-family: 'Press Start 2P', monospace;
-      font-size: .5rem;
-      color: rgba(255, 248, 231, .85);
-      text-shadow: 1px 1px 0 #000;
     }
 
     .slot-name {
@@ -491,7 +491,6 @@
     }
 
     .mc-modal-close {
-      font-family: 'Press Start 2P', monospace;
       font-size: .6rem;
       background: var(--red);
       color: #fff;
@@ -578,45 +577,6 @@
       border: 2px solid #7a5900;
       clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
       display: inline-block;
-    }
-
-    /* ---- 期バッジ ---- */
-    .gen-badge {
-      display: inline-block;
-      font-family: 'DotGothic16', monospace;
-      font-size: 1rem;
-      padding: .25rem .7rem;
-      margin-bottom: .6rem;
-      border-bottom: 3px solid;
-      border-right: 3px solid;
-      border-top: 2px solid rgba(255, 255, 255, .3);
-      border-left: 2px solid rgba(255, 255, 255, .3);
-      letter-spacing: .06em;
-      text-shadow: 1px 1px 0 rgba(0, 0, 0, .5);
-      color: #fff;
-    }
-
-    .gen-badge.gen-1 {
-      background: #5f5f5f;
-      border-color: #333 #222 #222 #333;
-    }
-
-    .gen-badge.gen-2 {
-      background: #0077b6;
-      border-color: #003f67 #00243d #00243d #003f67;
-    }
-
-    .gen-badge.gen-3 {
-      background: #7b2d8b;
-      border-color: #4a1557 #2a0a33 #2a0a33 #4a1557;
-    }
-
-    .mc-modal-bio {
-      font-size: .95rem;
-      color: #222;
-      line-height: 2;
-      margin-bottom: .75rem;
-      font-family: 'Zen Kaku Gothic New', sans-serif;
     }
 
     .mc-modal-links {
@@ -720,16 +680,6 @@
       color: #fff;
       text-shadow: 2px 2px 0 #000;
     }
-
-    .no-rec-mc {
-      font-size: .82rem;
-      color: #555;
-      text-align: center;
-      padding: .75rem;
-      border: 2px dashed #aaa;
-    }
-
-
 
 
 
@@ -964,6 +914,7 @@
     .mc-about-block-title {
       font-family: 'DotGothic16', monospace;
       font-size: 1rem;
+      font-weight: 400;
       color: var(--gold);
       text-shadow: 2px 2px 0 #7a5900;
       margin-bottom: .85rem;
@@ -1038,6 +989,7 @@
     .mc-contact-box-title {
       font-family: 'DotGothic16', monospace;
       font-size: 1rem;
+      font-weight: 400;
       color: #1a1a1a;
       text-shadow: 1px 1px 0 rgba(255, 255, 255, .3);
       margin-bottom: .75rem;
@@ -1229,7 +1181,7 @@
   <!-- ===== STICKY HEADER ===== -->
   <header class="mc-header" id="mcHeader">
     <button class="mc-header-logo" onclick="goTo('hero')">
-      <img src="img/logo.png" alt="おかき鯖" class="mc-logo-img">
+      <img src="img/logo-sm.png" alt="おかき鯖" class="mc-logo-img" width="79" height="28">
     </button>
     <nav class="mc-header-nav">
       <button class="mc-nav-btn" data-sec="hero" onclick="goTo('hero')">HOME</button>
@@ -1271,24 +1223,23 @@
     <!-- TITLE SCREEN -->
     <section class="title-screen" id="hero">
       <div class="mc-logo-wrap">
-        <div class="mc-logo">
+        <h1 class="mc-logo">
           <span class="highlight">おかき鯖</span>
           メンバー紹介
-        </div>
+        </h1>
       </div>
 
-      <button class="mc-btn"
-        onclick="document.getElementById('memberSec').scrollIntoView({behavior:'smooth'})">メンバーリストを見る</button>
+      <button class="mc-btn" onclick="goTo('memberSec')">メンバーリストを見る</button>
       <div class="mc-version">Made with ❤ by おかき鯖</div>
     </section>
 
     <!-- ===== ABOUT SECTION ===== -->
     <section class="mc-about-section" id="about">
       <div class="mc-about-inner">
-        <div class="mc-section-title">[ ABOUT おかき鯖 ]</div>
+        <h2 class="mc-section-title">[ ABOUT おかき鯖 ]</h2>
         <div class="mc-about-grid">
           <div class="mc-about-block">
-            <div class="mc-about-block-title">🌐 おかき鯖とは？</div>
+            <h3 class="mc-about-block-title">🌐 おかき鯖とは？</h3>
             <div class="mc-about-block-text">
               kaki、たけぉが運営する配信者グループ。<br>
               ただ遊ぶだけではなく、本気で活動する配信者・クリエイターが集まり、切磋琢磨しながら共に歩んでいくコミュニティです。
@@ -1304,7 +1255,7 @@
             </div>
           </div>
           <div class="mc-about-block">
-            <div class="mc-about-block-title">⛏ サーバーでの活動</div>
+            <h3 class="mc-about-block-title">⛏ サーバーでの活動</h3>
             <div class="mc-about-block-text">
               ・マイクラ等のゲームを通じた大規模なコラボ企画・配信<br>
               ・メンバー同士の自発的なコラボや交流活動<br>
@@ -1313,14 +1264,14 @@
             </div>
           </div>
           <div class="mc-about-wide">
-            <div class="mc-about-block-title" style="color:var(--text)">📈 確かな成長と実績</div>
+            <h3 class="mc-about-block-title" style="color:var(--text)">📈 確かな成長と実績</h3>
             <div class="mc-about-block-text" style="color:rgba(255,248,231,.85)">
               参加からわずか半年間で「登録者数千〜1.5万人以上の増加」「同接100人超え」「ショート動画100万回再生」を達成するメンバーが続出！<br>
               エンタメとして視聴者と一緒に楽しみながら、それぞれが確かな成長の軌跡を残し続けています。気になったメンバーのアイコンをクリックして、ぜひチャンネルを覗いてみてください！
             </div>
           </div>
           <div class="mc-about-wide" style="background:#5a5a5a;">
-            <div class="mc-about-block-title" style="color:var(--text)">📜 メンバー募集の歩み</div>
+            <h3 class="mc-about-block-title" style="color:var(--text)">📜 メンバー募集の歩み</h3>
             <div class="mc-about-block-text" style="color:rgba(255,248,231,.85)">
               <ul style="list-style:none; line-height:2; padding-left:0.5rem; border-left: 2px solid var(--gold);">
                 <li style="padding-left:0.5rem;"><strong>[ 第1回募集 ]</strong> 2025年8月18日〜8月25日</li>
@@ -1335,19 +1286,19 @@
 
     <!-- MEMBER SECTION -->
     <section class="member-section" id="memberSec">
-      <div class="mc-section-title">[ MEMBER LIST ]</div>
+      <h2 class="mc-section-title">[ MEMBER LIST ]</h2>
       <div class="inv-grid" id="mainInv"></div>
       <br><br>
-      <div class="mc-section-title">[ STAFF ]</div>
+      <h2 class="mc-section-title">[ STAFF ]</h2>
       <div class="inv-grid inv-grid--center" id="staffInv"></div>
     </section>
 
     <!-- ===== CONTACT SECTION ===== -->
     <section class="mc-contact-section" id="contact">
       <div class="mc-contact-inner">
-        <div class="mc-section-title">[ CONTACT ]</div>
+        <h2 class="mc-section-title">[ CONTACT ]</h2>
         <div class="mc-contact-box">
-          <div class="mc-contact-box-title">🎮 視聴者の方へ（メンバーへの応援）</div>
+          <h3 class="mc-contact-box-title">🎮 視聴者の方へ（メンバーへの応援）</h3>
           <div class="mc-contact-box-text">
             各メンバーへの応援・ファンレターは、MEMBERS セクションよりご本人の各SNSへ直接お願いいたします！<br>
             ハッシュタグ <a href="https://x.com/search?q=%23%E3%81%8A%E3%81%8B%E3%81%8D%E9%AF%96&src=typed_query"
@@ -1361,7 +1312,7 @@
         </div>
 
         <div class="mc-contact-box">
-          <div class="mc-contact-box-title">💬 総合・コラボのお問い合わせ</div>
+          <h3 class="mc-contact-box-title">💬 総合・コラボのお問い合わせ</h3>
           <div class="mc-contact-box-text">
             おかき鯖全体に関するご質問・コラボのご依頼などは、
             下記のメールアドレスまたは代表(kaki)のXのDMよりお気軽にお問い合わせください。<br>
@@ -1401,7 +1352,6 @@
       <div class="mc-modal-body">
         <div class="mc-modal-av"><img id="mcModalAv" src="" alt=""></div>
         <div class="mc-modal-info">
-          <div id="mcModalGenBadge"></div>
           <div class="mc-modal-subs" id="mcModalSubs"></div>
           <div class="mc-modal-links" id="mcModalLinks"></div>
         </div>
@@ -1472,7 +1422,6 @@
       avEl.alt = m.name;
       const fallbackSvg = `<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><rect width='120' height='120' fill='${color}'/><text x='60' y='60' dominant-baseline='central' text-anchor='middle' font-size='52' font-family='sans-serif' fill='rgba(255,255,255,.9)'>${m.name[0]}</text></svg>`;
       avEl.onerror = () => { avEl.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(fallbackSvg); avEl.onerror = null; };
-      // 期バッジ削除
       const subsEl = document.getElementById('mcModalSubs');
       if (m.subscribers != null) {
         subsEl.innerHTML = `<span class="mc-stat-dot"></span> <span style="opacity:0.8; font-size:0.85rem;">登録者数</span> <span class="subs-num">${m.subscribers.toLocaleString()}</span> <span style="font-size:0.8rem; opacity:0.7;">人</span>`;
@@ -1565,32 +1514,17 @@
       const countEl = document.getElementById('mcMemberCount');
       if (countEl) countEl.textContent = data.length;
 
-      const memberList = data
-        .filter(d => d.id !== '運営')
-        .map((d, i) => ({
-          num: i + 1,
-          name: d.name,
-          yt: d.youtube,
-          x: d.x,
-          icon: d.icon,
-          subscribers: d.subscribers !== undefined ? d.subscribers : null,
-          rec: d.rec !== undefined ? d.rec : null,
-          recTitle: d.recTitle !== undefined ? d.recTitle : null,
-          generation: d.generation !== undefined ? d.generation : 1
-        }));
-      const staffList = data
-        .filter(d => d.id === '運営')
-        .map((d, i) => ({
-          num: i + 1,
-          name: d.name,
-          yt: d.youtube,
-          x: d.x,
-          icon: d.icon,
-          subscribers: d.subscribers !== undefined ? d.subscribers : null,
-          rec: d.rec !== undefined ? d.rec : null,
-          recTitle: d.recTitle !== undefined ? d.recTitle : null,
-          generation: null  // 運営はバッジなし
-        }));
+      const toEntry = d => ({
+        name: d.name,
+        yt: d.youtube,
+        x: d.x,
+        icon: d.icon,
+        subscribers: d.subscribers !== undefined ? d.subscribers : null,
+        rec: d.rec !== undefined ? d.rec : null,
+        recTitle: d.recTitle !== undefined ? d.recTitle : null
+      });
+      const memberList = data.filter(d => d.id !== '運営').map(toEntry);
+      const staffList = data.filter(d => d.id === '運営').map(toEntry);
       buildInv(memberList, document.getElementById('mainInv'));
       buildInv(staffList, document.getElementById('staffInv'));
       if (ioInv) {
@@ -1634,20 +1568,18 @@
     function goTo(id) {
       const el = document.getElementById(id);
       if (!el) return;
-      const y = el.getBoundingClientRect().top + window.scrollY;
-      smoothScrollTo(y);
+      // 固定ヘッダーの高さ分だけ手前で止める（見出しがヘッダーの下に潜るのを防ぐ）
+      const header = document.getElementById('mcHeader');
+      const offset = (id === 'hero' || !header) ? 0 : header.offsetHeight + 12;
+      const y = el.getBoundingClientRect().top + window.scrollY - offset;
+      smoothScrollTo(Math.max(0, y));
     }
 
-    // ヘッダーとサイドナビのスクロールスパイ
+    // ナビの現在地ハイライト（ヘッダーの表示/非表示は下のスクロール監視に集約）
     const ioSec = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
         const id = e.target.id;
-        if (id !== 'hero') {
-          document.getElementById('mcHeader').classList.add('visible');
-        } else {
-          document.getElementById('mcHeader').classList.remove('visible');
-        }
         document.querySelectorAll('[data-sec]').forEach(el => {
           el.classList.toggle('active', el.dataset.sec === id);
         });
@@ -1701,30 +1633,46 @@
       }
     })();
     // ====== HEADER SCROLL (SP Logo & Visibility) ======
-    window.addEventListener('scroll', () => {
+    // スクロールのたびに offsetTop を読むとレイアウト計算が走るので、
+    // 位置の計測は初回と resize 時だけにして、更新は rAF でまとめる。
+    (function () {
       const header = document.getElementById('mcHeader');
       const aboutSec = document.getElementById('about');
       if (!header || !aboutSec) return;
 
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      let aboutTop = 0;
+      let ticking = false;
 
-      // デスクトップ：一定スクロールでヘッダー出現
-      if (scrollTop > 200) {
-        header.classList.add('visible');
-      } else {
-        header.classList.remove('visible');
+      function measure() {
+        aboutTop = aboutSec.offsetTop - 100;
       }
 
-      // SP：Aboutセクション以降でロゴ/ヘッダー出現
-      if (window.innerWidth <= 768) {
-        const aboutTop = aboutSec.offsetTop - 100;
-        if (scrollTop > aboutTop) {
-          header.classList.add('sp-active');
+      function update() {
+        ticking = false;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        // デスクトップ：一定スクロールでヘッダー出現
+        header.classList.toggle('visible', scrollTop > 200);
+
+        // SP：Aboutセクション以降でロゴ/ヘッダー出現
+        if (window.innerWidth <= 768) {
+          header.classList.toggle('sp-active', scrollTop > aboutTop);
         } else {
           header.classList.remove('sp-active');
         }
       }
-    });
+
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+
+      measure();
+      update();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', () => { measure(); update(); });
+    })();
 
     function showCopyToast() {
       const t = document.getElementById('copyToast');
@@ -1736,18 +1684,27 @@
     // ====== パーティクル ＆ パララックス演出 ======
     (function () {
       // パララックス演出 (マウス連動)
+      // pageX/pageY はスクロール量を含むため、position:fixed の星空が
+      // スクロールに応じてズレていく。ビューポート基準の clientX/clientY を使う。
+      const logoEl = document.querySelector('.mc-logo-wrap');
+      const skyEl = document.querySelector('.night-sky');
+      let px = 0, py = 0, parallaxQueued = false;
+
+      function applyParallax() {
+        parallaxQueued = false;
+        if (logoEl) logoEl.style.transform = `translate(${px}px, ${py}px)`;
+        // 背景星空は少し遅れて動く
+        if (skyEl) skyEl.style.transform = `translate(${px * 0.4}px, ${py * 0.4}px)`;
+      }
+
       document.addEventListener('mousemove', e => {
         // 画面中央を原点とした移動量
-        const x = (window.innerWidth / 2 - e.pageX) / 40;
-        const y = (window.innerHeight / 2 - e.pageY) / 40;
-
-        const logo = document.querySelector('.mc-logo-wrap');
-        if (logo) logo.style.transform = `translate(${x}px, ${y}px)`;
-
-        // 背景星空は少し遅れて動く
-        const sky = document.querySelector('.night-sky');
-        if (sky) sky.style.transform = `translate(${x * 0.4}px, ${y * 0.4}px)`;
-      });
+        px = (window.innerWidth / 2 - e.clientX) / 40;
+        py = (window.innerHeight / 2 - e.clientY) / 40;
+        if (parallaxQueued) return;
+        parallaxQueued = true;
+        requestAnimationFrame(applyParallax);
+      }, { passive: true });
 
       // パーティクル演出 (マイクラの雪/光のドット風)
       const canvas = document.getElementById('particleCanvas');

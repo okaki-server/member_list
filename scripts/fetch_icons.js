@@ -41,7 +41,10 @@ async function main() {
   for (const member of members) {
     if (!member.youtube) continue;
     process.stdout.write(`  🔍 ${member.name} ... `);
-    const ytUrl = member.iconUrlSource || (Array.isArray(member.youtube) ? member.youtube[0] : member.youtube);
+    // youtube は文字列 / 配列 / {url,label} オブジェクトの配列 のいずれもあり得る
+    const first = Array.isArray(member.youtube) ? member.youtube[0] : member.youtube;
+    const ytUrl = member.iconUrlSource || (typeof first === 'string' ? first : first && first.url);
+    if (!ytUrl) { console.log('❌ YouTube URL を解決できず（スキップ）'); continue; }
     const iconUrl = await getYouTubeIcon(ytUrl);
     if (iconUrl) {
       member.icon = iconUrl;
